@@ -1,0 +1,277 @@
+﻿@model Agenciapp.Models.Client
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-header row">
+    <div class="content-header-left col-md-6 col-xs-12 mb-2">
+        <h3 class="content-header-title mb-0">Clientes</h3>
+        <div class="row breadcrumbs-top">
+            <div class="breadcrumb-wrapper col-xs-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">
+                        <a href="index.html">Cliente</a>
+                    </li>
+                    @*<li class="breadcrumb-item">
+                            <a href="#">DataTables</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Sources Datatable
+                        </li>*@
+                </ol>
+            </div>
+        </div>
+
+    </div>
+    <div class="content-header-right col-md-6 col-xs-12">
+        @* <div role="group" aria-label="Button group with nested dropdown" class="btn-group float-md-right">
+                   <div role="group" class="btn-group">
+                    <button id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-outline-primary dropdown-toggle dropdown-menu-right"><i class="ft-cog icon-left"></i> Settings</button>
+                    <div aria-labelledby="btnGroupDrop1" class="dropdown-menu"><a href="card-bootstrap.html" class="dropdown-item">Bootstrap Cards</a><a href="component-buttons-extended.html" class="dropdown-item">Buttons Extended</a></div>
+                </div><a href="calendars-clndr.html" class="btn btn-outline-primary"><i class="ft-mail"></i></a><a href="timeline-center.html" class="btn btn-outline-primary"><i class="ft-pie-chart"></i></a>
+            </div>*@
+        @*<button type="button" class="btn btn-primary btn-min-width mr-1 mb-1 float-md-right"></button>*@
+     @*   <a class="btn btn-primary btn-min-width mr-1 mb-1 float-md-right" asp-action="Create"> <i class="fa fa-plus"></i> Nuevo</a>*@
+    </div>
+</div>
+
+<div class="content-body">
+
+    <section id="basic-form-layouts">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title" id="bordered-layout-colored-controls">Adicionar Cliente</h4>
+                        <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                <li><a data-action="close"><i class="ft-x"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body collapse in">
+                        <div class="card-block">
+                            <form class="form form-horizontal form-bordered" asp-action="Create">
+                                <div class="form-body">
+                                    @*<h4 class="form-section"><i class="icon-eye6"></i>Datos de</h4>*@
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row ">
+                                                <label class="col-md-3 label-control" for="Name">Nombre</label>
+                                                @*<label asp-for="Name" class="col-md-3 control-label" for="userinput1"></label>*@
+                                                <div class="col-md-9">
+                                                    <input asp-for="Name" class="form-control " placeholder="Nombre" />
+                                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row last ">
+                                                <label class="col-md-3 label-control" for="Name">Apellido</label>
+                                                @*<label asp-for="Name" class="col-md-3 control-label" for="userinput1"></label>*@
+                                                <div class="col-md-9">
+                                                    <input asp-for="LastName" class="form-control " placeholder="Nombre" />
+                                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row last ">
+                                                @*<label asp-for="Phone.Number" class="col-md-3 control-label" for="userinput1"></label>*@
+                                                <label class="col-md-3 label-control" asp-for="Phone.Number">Móvil</label>
+                                                <div class="col-md-9">
+                                                    <input asp-for="Phone.Number" class="form-control " placeholder="Móvil"/>
+                                                    <span asp-validation-for="Phone.Number" class="text-danger" id="movil"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row last ">
+                                                @*<label asp-for="Phone.Number" class="col-md-3 control-label" for="userinput1"></label>*@
+                                                <label class="col-md-3 label-control" asp-for="Address.AddressLine1">Calle</label>
+                                                <div class="col-md-9">
+                                                    <input asp-for="Address.AddressLine1" class="form-control " placeholder="Calle" />
+                                                    <span asp-validation-for="Address.AddressLine1" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" asp-for="Address.State">Estado</label>
+                                                <div class="col-md-9">
+                                                    <select id="state" class="form-control" placeholder="Estado" asp-for="Address.State">
+                                                        <option>Select</option>
+                                                        <option value="Enviado">Florida</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" asp-for="Address.City">Estado</label>
+                                                <div class="col-md-9">
+                                                    <select id="state" class="form-control" asp-for="Address.City" placeholder="Estado">
+                                                        <option>Select</option>
+                                                        <option value="Enviado">Florida</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+
+                                          
+
+                                            <div class="form-group row last ">
+                                                @*<label asp-for="Phone.Number" class="col-md-3 control-label" for="userinput1"></label>*@
+                                                <label class="col-md-3 label-control" asp-for="Address.Zip">Código Zip</label>
+                                                <div class="col-md-9">
+                                                    <input asp-for="Address.Zip" class="form-control " placeholder="Código Zip" />
+                                                    <span asp-validation-for="Address.Zip" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+
+                                            @*<div class="form-group">
+            <label asp-for="AddressId" class="control-label"></label>
+            <select asp-for="AddressId" class="form-control" asp-items="ViewBag.AddressId"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="PhoneId" class="control-label"></label>
+            <select asp-for="PhoneId" class="form-control" asp-items="ViewBag.PhoneId"></select>
+        </div>*@
+
+
+
+
+
+                                            @*<div class="form-group row last">
+            <label class="col-md-3 label-control" for="Name">Fecha</label>
+            @*<label asp-for="Name" class="col-md-3 control-label" for="userinput1"></label>
+            <div class="col-md-9">
+                <input asp-for="CreatedAt" class="form-control border-primary" placeholder="Nombre" />
+                <span asp-validation-for="CreatedAt" class="text-danger"></span>
+            </div>
+        </div>*@
+                                        </div>
+
+
+                                    </div>
+
+
+
+
+                                </div>
+
+                                <div class="form-actions right">
+                                    @*<button type="button" class="btn btn-warning mr-1">
+                                            <i class="ft-x"></i> Cancel
+                                        </button>*@
+
+                                    <a class="btn btn-warning mr-1" asp-action="Index"> <i class="ft-x"></i> Cancelar</a>
+
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-check-square-o"></i> Adicionar Contacto
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+
+    @*<div>
+            <a asp-action="Index">Back to List</a>
+        </div>*@
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*@model AgenciappHome.Models.Client
+
+        @{
+            ViewData["Title"] = "Create";
+            Layout = "~/Views/Shared/_Layout.cshtml";
+        }
+
+        <h2>Create</h2>
+
+        <h4>Client</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="ClientId" class="control-label"></label>
+                        <input asp-for="ClientId" class="form-control" />
+                        <span asp-validation-for="ClientId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AgencyId" class="control-label"></label>
+                        <select asp-for="AgencyId" class ="form-control" asp-items="ViewBag.AgencyId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CreatedAt" class="control-label"></label>
+                        <input asp-for="CreatedAt" class="form-control" />
+                        <span asp-validation-for="CreatedAt" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AddressId" class="control-label"></label>
+                        <select asp-for="AddressId" class ="form-control" asp-items="ViewBag.AddressId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PhoneId" class="control-label"></label>
+                        <select asp-for="PhoneId" class ="form-control" asp-items="ViewBag.PhoneId"></select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }*@
