@@ -1,0 +1,232 @@
+﻿@model Agenciapp.Models.User
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <section id="basic-form-layouts">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title" id="bordered-layout-colored-controls">Adicionar Usuario</h4>
+                        <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                <li><a data-action="close"><i class="ft-x"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body collapse in">
+                        <div class="card-block">
+                            <form class="form form-horizontal form-bordered" asp-action="Create">
+                                <div class="form-body">
+                                    <h4 class="form-section"><i class="icon-eye6"></i>Datos del Usuario</h4>
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="Name">Nombre</label>
+                                                @*<label asp-for="Name" class="col-md-3 control-label" for="userinput1"></label>*@
+                                                <div class="col-md-9">
+                                                    <input asp-for="Name" class="form-control border-primary" placeholder="Nombre" />
+                                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="Type">Tipo</label>
+                                                @*<label asp-for="Name" class="col-md-3 control-label" for="userinput1"></label>*@
+                                                <div class="col-md-9">
+                                                    <select asp-for="Type" class="form-control border-primary" placeholder="Tipo">
+                                                        <option>Selecione</option>
+                                                        <option value="Agency">Agencia</option>
+                                                        <option value="Client">Cliente</option>
+                                                        <option value="Client">Distribuidor</option>
+                                                    </select>
+                                                    <span asp-validation-for="Type" class="text-danger"></span>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="form-group row ">
+                                                <label class="col-md-3 label-control" asp-for="Email">Correo</label>
+                                                <div class="col-md-9">
+                                                    <input asp-for="Email" class="form-control border-primary" placeholder="Correo" />
+                                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group row ">
+                                                <label class="col-md-3 label-control" asp-for="PasswordHash">Contraseña</label>
+                                                <div class="col-md-9">
+                                                    <input asp-for="PasswordHash" class="form-control border-primary" placeholder="Contraseña" />
+                                                    <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group row ">
+                                                <label class="col-md-3 label-control" asp-for="Email">Confirmar Contraseña</label>
+                                                <div class="col-md-9">
+                                                    <input asp-for="PasswordSalt" class="form-control border-primary" placeholder="Confirmar Contraseña" />
+                                                    <span asp-validation-for="PasswordSalt" class="text-danger"></span>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+
+
+                                    @*<h4 class="form-section"><i class="ft-mail"></i> Address</h4>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="userinput5">Email</label>
+                                                <div class="col-md-9">
+                                                    <input class="form-control border-primary" type="email" placeholder="email" id="userinput5">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="userinput6">Website</label>
+                                                <div class="col-md-9">
+                                                    <input class="form-control border-primary" type="url" placeholder="http://" id="userinput6">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row last">
+                                                <label class="col-md-3 label-control">Contact Number</label>
+                                                <div class="col-md-9">
+                                                    <input class="form-control col-md-9 border-primary" type="tel" placeholder="Contact Number" id="userinput7">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row last">
+                                                <label class="col-md-3 label-control" for="userinput8">Bio</label>
+                                                <div class="col-md-9">
+                                                    <textarea id="userinput8" rows="6" class="form-control col-md-9 border-primary" name="bio" placeholder="Bio"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                </div>
+
+                                <div class="form-actions right">
+                                    <button type="button" class="btn btn-warning mr-1">
+                                        <i class="ft-x"></i> Cancel
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-check-square-o"></i> Save
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        @*<form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+                    <label asp-for="UserId" class="control-label"></label>
+                    <input asp-for="UserId" class="form-control" />
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="EmailConfirmed" /> @Html.DisplayNameFor(model => model.EmailConfirmed)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="PasswordHash" class="control-label"></label>
+                <input asp-for="PasswordHash" class="form-control" />
+                <span asp-validation-for="PasswordHash" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PasswordSalt" class="control-label"></label>
+                <input asp-for="PasswordSalt" class="form-control" />
+                <span asp-validation-for="PasswordSalt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecureCode" class="control-label"></label>
+                <input asp-for="SecureCode" class="form-control" />
+                <span asp-validation-for="SecureCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                    <label asp-for="ExpiresSecureCode" class="control-label"></label>
+                    <input asp-for="ExpiresSecureCode" class="form-control" />
+                    <span asp-validation-for="ExpiresSecureCode" class="text-danger"></span>
+                </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <select asp-for="Type" class="form-control">
+                    <option>Select</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <input asp-for="Type" class="form-control" />
+                <select asp-for="Type" class="form-control">
+                    <option>Select</option>
+                    <option value="Agency">Agency</option>
+                    <option value="Client">Client</option>
+                    <option value="Client">Carrier</option>
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                    <label asp-for="AccountId" class="control-label"></label>
+                    <input asp-for="AccountId" class="form-control" />
+                    <span asp-validation-for="AccountId" class="text-danger"></span>
+                </div>
+            <div class="form-group">
+                    <label asp-for="Timestamp" class="control-label"></label>
+                    <input asp-for="Timestamp" class="form-control" />
+                    <span asp-validation-for="Timestamp" class="text-danger"></span>
+                </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>*@
+
+
+        @*<div>
+            <a asp-action="Index">Back to List</a>
+        </div>*@
+
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

@@ -1,0 +1,169 @@
+﻿@model IEnumerable<Agenciapp.Models.User>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.EmailConfirmed)
+                </th>*@
+            @*<th>
+                    @Html.DisplayNameFor(model => model.PasswordHash)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PasswordSalt)
+                </th>*@
+            @*<th>
+                    @Html.DisplayNameFor(model => model.SecureCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExpiresSecureCode)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.AccountId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Timestamp)
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.EmailConfirmed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PasswordHash)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PasswordSalt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SecureCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpiresSecureCode)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.AccountId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Timestamp)
+                    </td>*@
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.UserId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.UserId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.UserId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+@*<div class="content-body">
+    <!-- Basic scenario start -->
+    <section id="basic">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Basic Scenario</h4>
+                        <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                <li><a data-action="close"><i class="ft-x"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body collapse in">
+                        <div class="card-block card-dashboard ">
+                            <p>Grid with filtering, editing, inserting, deleting, sorting and paging. Data provided by controller.</p>
+                            <div id="loading"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Basic scenario end -->*@
+
+    
+
+    @*$("#basicScenario1").jqGrid
+    ({
+    url: '@Url.Action("GetValues,Users")',
+    datatype: 'json',
+    mtype: 'Get',
+    //table header name
+    colNames: ['Name', 'Type', 'Email', 'Status'],
+    //colModel takes the data from controller and binds to grid
+    colModel: [
+    {label:'Name', name: "Name" },
+    { label:'Type',name: "Type" },
+    { label:'Email',name: "Email" },
+    { label:'Status',name: "Status" },
+
+
+    ],
+    height: '100%',
+    rowNum: 10,
+    r
+    viewrecords: true,
+    caption: 'JQgrid DEMO',
+    emptyrecords: 'No records',
+    jsonReader:
+    {
+    root: "rows",
+    page: "page",
+    total: "total",
+    records: "records",
+    repeatitems: false,
+    Id: "0"
+    },
+    autowidth: true,
+    });
+    });
+    </script>*@
