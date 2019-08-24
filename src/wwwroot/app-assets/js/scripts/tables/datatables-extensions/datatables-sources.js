@@ -14,14 +14,14 @@ $(document).ready(function() {
 *       HTML (DOM) sourced data        *
 ****************************************/
 
-    $('.sourced-data').DataTable();
+    $('.sourced-data').DataTable( );
 
 /*********************************
 *       Ajax sourced data        *
 **********************************/
 
     $('.ajax-sourced').DataTable( {
-        "ajax": "../../../app-assets/data/datatables/ajax-sourced.json"
+        "ajax": "../app-assets/data/datatables/ajax-sourced.json"
     } );
 
 /***************************************

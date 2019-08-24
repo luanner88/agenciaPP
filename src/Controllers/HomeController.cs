@@ -4,12 +4,28 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Agenciapp.Models;
+using AgenciappHome.Models;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
+using Microsoft.AspNetCore.Http;
+using System.Text;
+using NPOI.HSSF.UserModel;
 
-namespace Agenciapp.Controllers
+namespace AgenciappHome.Controllers
 {
     public class HomeController : Controller
     {
+        
+        private readonly databaseContext _context;
+
+        public HomeController(databaseContext context)
+        {
+            _context = context;
+
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -33,11 +49,22 @@ namespace Agenciapp.Controllers
         {
             return View();
         }
+        public IActionResult ImportClient()
+        {
+            ViewData["Message"] = "Your application description page.";
+
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+     
+
+     
+
     }
 }

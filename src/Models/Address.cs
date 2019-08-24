@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Agenciapp.Models
+namespace AgenciappHome.Models
 {
     public partial class Address
     {
-        public Address()
-        {
-            Client = new HashSet<Client>();
-            Contact = new HashSet<Contact>();
-        }
-
         public Guid AddressId { get; set; }
         public Guid ReferenceId { get; set; }
         public bool Current { get; set; }
@@ -25,8 +19,5 @@ namespace Agenciapp.Models
         public Guid CreatedBy { get; set; }
         public DateTime UpdatedAt { get; set; }
         public Guid UpdatedBy { get; set; }
-
-        public ICollection<Client> Client { get; set; }
-        public ICollection<Contact> Contact { get; set; }
     }
 }

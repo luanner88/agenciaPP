@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Agenciapp.Models
+namespace AgenciappHome.Models
 {
     public partial class databaseContext : DbContext
     {
@@ -28,15 +28,17 @@ namespace Agenciapp.Models
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Shipping> Shipping { get; set; }
         public virtual DbSet<ShippingItem> ShippingItem { get; set; }
+        public virtual DbSet<TipoPago> TipoPago { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<ValorAduanal> ValorAduanal { get; set; }
+        public virtual DbSet<ValorAduanalItem> ValorAduanalItem { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=desktop-ccknsdd;Initial Catalog=database;User Id=sa;Password=Maluma123;Integrated Security=True");
+                optionsBuilder.UseSqlServer("Server=desktop-pm15ctg;Initial Catalog=database;Integrated Security=True; User Id=sa;Password=Maluma123");
             }
         }
 
@@ -125,6 +127,10 @@ namespace Agenciapp.Models
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
                 entity.Property(e => e.LastName)
                     .IsRequired()
                     .HasMaxLength(100);
@@ -133,21 +139,11 @@ namespace Agenciapp.Models
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.HasOne(d => d.Address)
-                    .WithMany(p => p.Client)
-                    .HasForeignKey(d => d.AddressId)
-                    .HasConstraintName("FK_Client_AddressId");
-
                 entity.HasOne(d => d.Agency)
                     .WithMany(p => p.Client)
                     .HasForeignKey(d => d.AgencyId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("RefAgency8");
-
-                entity.HasOne(d => d.Phone)
-                    .WithMany(p => p.Client)
-                    .HasForeignKey(d => d.PhoneId)
-                    .HasConstraintName("FK_Client_Phone");
             });
 
             modelBuilder.Entity<Contact>(entity =>
@@ -159,6 +155,10 @@ namespace Agenciapp.Models
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
                 entity.Property(e => e.LastName)
                     .IsRequired()
                     .HasMaxLength(100);
@@ -167,23 +167,11 @@ namespace Agenciapp.Models
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.HasOne(d => d.Address)
-                    .WithMany(p => p.Contact)
-                    .HasForeignKey(d => d.AddressId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Contact_AddressId");
-
                 entity.HasOne(d => d.Client)
                     .WithMany(p => p.Contact)
                     .HasForeignKey(d => d.ClientId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("RefClient10");
-
-                entity.HasOne(d => d.Phone)
-                    .WithMany(p => p.Contact)
-                    .HasForeignKey(d => d.PhoneId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Contact_Phone");
             });
 
             modelBuilder.Entity<Office>(entity =>
@@ -213,13 +201,17 @@ namespace Agenciapp.Models
 
                 entity.Property(e => e.Amount).HasColumnType("decimal(10, 2)");
 
+                entity.Property(e => e.Balance).HasColumnType("decimal(10, 2)");
+
                 entity.Property(e => e.CantLb).HasColumnType("decimal(10, 2)");
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
                 entity.Property(e => e.Number)
                     .IsRequired()
-                    .HasMaxLength(10);
+                    .HasMaxLength(14);
+
+                entity.Property(e => e.OtrosCostos).HasColumnType("decimal(10, 2)");
 
                 entity.Property(e => e.PriceLb).HasColumnType("decimal(10, 2)");
 
@@ -230,6 +222,10 @@ namespace Agenciapp.Models
                 entity.Property(e => e.Type)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.ValorAduanal).HasColumnType("decimal(10, 2)");
+
+                entity.Property(e => e.ValorPagado).HasColumnType("decimal(10, 2)");
 
                 entity.HasOne(d => d.Agency)
                     .WithMany(p => p.Order)
@@ -243,16 +239,29 @@ namespace Agenciapp.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("RefClient18");
 
+                entity.HasOne(d => d.Contact)
+                    .WithMany(p => p.Order)
+                    .HasForeignKey(d => d.ContactId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_Contact");
+
                 entity.HasOne(d => d.Office)
                     .WithMany(p => p.Order)
                     .HasForeignKey(d => d.OfficeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("RefOffice19");
 
-                entity.HasOne(d => d.ValorAduanal)
+                entity.HasOne(d => d.TipoPago)
                     .WithMany(p => p.Order)
-                    .HasForeignKey(d => d.ValorAduanalId)
-                    .HasConstraintName("RefValorAduanal1");
+                    .HasForeignKey(d => d.TipoPagoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_TipoPago");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Order)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_User");
             });
 
             modelBuilder.Entity<Package>(entity =>
@@ -380,6 +389,15 @@ namespace Agenciapp.Models
                     .HasConstraintName("RefProduct15");
             });
 
+            modelBuilder.Entity<TipoPago>(entity =>
+            {
+                entity.Property(e => e.TipoPagoId).ValueGeneratedNever();
+
+                entity.Property(e => e.Type)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
+
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.UserId)
@@ -440,6 +458,23 @@ namespace Agenciapp.Models
                     .HasMaxLength(50);
 
                 entity.Property(e => e.Value).HasColumnType("decimal(10, 2)");
+            });
+
+            modelBuilder.Entity<ValorAduanalItem>(entity =>
+            {
+                entity.Property(e => e.ValorAduanalItemId).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.ValorAduanalItem)
+                    .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Table_Order");
+
+                entity.HasOne(d => d.ValorAduanal)
+                    .WithMany(p => p.ValorAduanalItem)
+                    .HasForeignKey(d => d.ValorAduanalId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Table_ValorAduanal");
             });
         }
     }

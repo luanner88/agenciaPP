@@ -1,4 +1,4 @@
-﻿@model Agenciapp.Models.Order
+﻿@model AgenciappHome.Models.Order
 
 @{
     ViewData["Title"] = "Edit";
@@ -65,10 +65,75 @@
                 <span asp-validation-for="CantLb" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ValorAduanalId" class="control-label"></label>
-                <select asp-for="ValorAduanalId" class="form-control" asp-items="ViewBag.ValorAduanalId"></select>
-                <span asp-validation-for="ValorAduanalId" class="text-danger"></span>
+                <label asp-for="TipoPagoId" class="control-label"></label>
+                <select asp-for="TipoPagoId" class="form-control" asp-items="ViewBag.TipoPagoId"></select>
+                <span asp-validation-for="TipoPagoId" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="ContactId" class="control-label"></label>
+                <select asp-for="ContactId" class="form-control" asp-items="ViewBag.ContactId"></select>
+                <span asp-validation-for="ContactId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorPagado" class="control-label"></label>
+                <input asp-for="ValorPagado" class="form-control" />
+                <span asp-validation-for="ValorPagado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Balance" class="control-label"></label>
+                <input asp-for="Balance" class="form-control" />
+                <span asp-validation-for="Balance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OtrosCostos" class="control-label"></label>
+                <input asp-for="OtrosCostos" class="form-control" />
+                <span asp-validation-for="OtrosCostos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorAduanal" class="control-label"></label>
+                <input asp-for="ValorAduanal" class="form-control" />
+                <span asp-validation-for="ValorAduanal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorAduanalItem" class="control-label"></label>
+                <select asp-for="ValorAduanalItem" class="form-control"></select>
+                <span asp-validation-for="ValorAduanalItem" class="text-danger"></span>
+            </div>
+
+            @*<table class="table table-striped table-bordered sourced-data">
+                <thead>
+                    <tr>
+                        <th>
+                            Cantidad
+                        </th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.ClientId != null)
+                    {
+
+                        foreach (var item in ViewBag.ClientId)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Email
+                                </td>
+
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>*@
+
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Agenciapp.Models
+namespace AgenciappHome.Models
 {
     public partial class Client
     {
@@ -16,12 +16,9 @@ namespace Agenciapp.Models
         public string Name { get; set; }
         public string LastName { get; set; }
         public DateTime CreatedAt { get; set; }
-        public Guid? AddressId { get; set; }
-        public Guid? PhoneId { get; set; }
+        public string Email { get; set; }
 
-        public Address Address { get; set; }
         public Agency Agency { get; set; }
-        public Phone Phone { get; set; }
         public ICollection<Contact> Contact { get; set; }
         public ICollection<Order> Order { get; set; }
     }

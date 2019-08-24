@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Agenciapp.Models;
+using AgenciappHome.Models;
 
-namespace Agenciapp.Controllers
+namespace AgenciappHome.Controllers
 {
     public class AgenciesController : Controller
     {
@@ -45,11 +45,7 @@ namespace Agenciapp.Controllers
         // GET: Agencies/Create
         public IActionResult Create()
         {
-            using (var db = new databaseContext())
-            {
-              
-                return View();
-            }
+            return View();
         }
 
         // POST: Agencies/Create
@@ -59,12 +55,6 @@ namespace Agenciapp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AgencyId,Type,Name,LegalName,CreatedAt")] Agency agency)
         {
-           
-
-            //User user = new User();
-            //user.Email = Request.Form["nameUser"].ToString();
-
-
             if (ModelState.IsValid)
             {
                 agency.AgencyId = Guid.NewGuid();

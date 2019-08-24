@@ -1,3 +1,5 @@
+import { EventEmitter } from "events";
+
 /*=========================================================================================
     File Name: wizard-steps.js
     Description: wizard steps page specific js
@@ -18,7 +20,10 @@ $(".number-tab-steps").steps({
         finish: 'Submit'
     },
     onFinished: function (event, currentIndex) {
-        alert("Form submitted.");
+        alert("Form submitted Zuleidy");
+
+       
+
     }
 });
 

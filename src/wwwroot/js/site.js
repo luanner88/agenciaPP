@@ -12,6 +12,9 @@
 
 
 $(document).ready(function () {
+
+   
+
     //$('#btnAdd').click(function () {
 
     //});
@@ -46,7 +49,7 @@ $(document).ready(function () {
 
 
         //var value = $(this).val();
-        alert("Value");
+        //alert("Value"); Funciona
     });
 
 
@@ -94,58 +97,57 @@ $(document).ready(function () {
     //    $(".select2-selection__placeholder").text("Enter a User ID or Name")
     //});
 
-    $("body").on("click", "#btnAdd", function () {
+    //$("body").on("click", "#btnAdd", function () {
+    //    //Reference the Name and Country TextBoxes.
+    //    var txtName = $("#txtName");
+
+    //    var productos = document.getElementById('txtName');
+    //    var opt = productos.options[productos.selectedIndex];
+
+    //    alert(opt.val());
+       
+    //    ////Get the reference of the Table's TBODY element.
+    //    //var tBody = $("#tblCustomers > TBODY")[0];
+
+    //    ////Add Row.
+    //    //var row = tBody.insertRow(-1);
 
 
-        //Reference the Name and Country TextBoxes.
-        var txtName = $("#txtName");
 
-        var productos = document.getElementById('txtName');
-        // var opt = sel.options[producto.selectedIndex];
+    //    ////Add Name cell.
+    //    //var cell = $(row.insertCell(-1));
+    //    ////  cell.html(opt.value());
+    //    //cell.html(txtName.val());
 
-        var opt = productos.options[productos.selectedIndex];
-        //Get the reference of the Table's TBODY element.
-        var tBody = $("#tblCustomers > TBODY")[0];
-
-        //Add Row.
-        var row = tBody.insertRow(-1);
+    //    ////Add Country cell.
+    //    //cell = $(row.insertCell(-1));
+    //    //cell.html(opt.text/*txtCountry.val()*/);
 
 
+    //    ////Add Button cell.
+    //    //cell = $(row.insertCell(-1));
+    //    //var btnRemove = $("<input  />");
+    //    //btnRemove.attr("type", "button");
+    //    //btnRemove.attr("id", "btnRemove");
+    //    //btnRemove.attr("class", "btn btn-default");
+    //    //btnRemove.attr("onclick", "Remove(this);");
+    //    //btnRemove.val("Remove");
+    //    //cell.append(btnRemove);
 
-        //Add Name cell.
-        var cell = $(row.insertCell(-1));
-        //  cell.html(opt.value());
-        cell.html(txtName.val());
-
-        //Add Country cell.
-        cell = $(row.insertCell(-1));
-        cell.html(opt.text/*txtCountry.val()*/);
-
-
-        //Add Button cell.
-        cell = $(row.insertCell(-1));
-        var btnRemove = $("<input  />");
-        btnRemove.attr("type", "button");
-        btnRemove.attr("id", "btnRemove");
-        btnRemove.attr("class", "btn btn-default");
-        btnRemove.attr("onclick", "Remove(this);");
-        btnRemove.val("Remove");
-        cell.append(btnRemove);
-
-        // Send the JSON array to Controller using AJAX.
-        $.ajax({
-            type: "POST",
-            url: "/Orders/AddProduct",
-            data: JSON.stringify(txtName.val()),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (r) {
-                alert(r + " record(s) inserted.");
-            }
-        });
+    //    // Send the JSON array to Controller using AJAX.
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/Orders/AddProduct",
+    //        data: JSON.stringify(txtName.val()),
+    //        dataType: 'json',
+    //        contentType: 'application/json',
+    //        success: function (r) {
+    //            alert(r + " record(s) inserted.");
+    //        }
+    //    });
 
 
-    });
+    //});
 
     var boton = document.getElementById('btnRemove');
     boton.onclick = function () {

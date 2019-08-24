@@ -1,6 +1,6 @@
 using System;
 
-namespace Agenciapp.Models
+namespace AgenciappHome.Models
 {
     public class ErrorViewModel
     {

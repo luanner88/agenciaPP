@@ -1,11 +1,11 @@
-﻿@model IEnumerable<Agenciapp.Models.Office>
+﻿@model IEnumerable<AgenciappHome.Models.Office>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Oficinas</h2>
+<h2>Index</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -16,9 +16,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            @*<th>
+            <th>
                 @Html.DisplayNameFor(model => model.Agency)
-            </th>*@
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -28,9 +28,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            @*<td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Agency.LegalName)
-            </td>*@
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.OfficeId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.OfficeId">Details</a> |

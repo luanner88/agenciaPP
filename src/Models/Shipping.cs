@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Agenciapp.Models
+namespace AgenciappHome.Models
 {
     public partial class Shipping
     {

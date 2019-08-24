@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Agenciapp.Models;
-using Newtonsoft.Json;
+using AgenciappHome.Models;
 
-namespace Agenciapp.Controllers
+namespace AgenciappHome.Controllers
 {
     public class UsersController : Controller
     {
@@ -56,11 +55,10 @@ namespace Agenciapp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UserId,Name,Email,EmailConfirmed,PasswordHash,PasswordSalt,SecureCode,ExpiresSecureCode,Status,Type,AccountId,Timestamp")] User user)
         {
-            Agency agency = _context.Agency.First();
             if (ModelState.IsValid)
             {
                 user.UserId = Guid.NewGuid();
-                user.AccountId = agency.AgencyId;
+                user.AccountId = _context.Agency.First().AgencyId ;
                 user.Status = "Inactivo";
                 user.Timestamp = DateTime.Now;
                 _context.Add(user);
@@ -154,46 +152,5 @@ namespace Agenciapp.Controllers
         {
             return _context.User.Any(e => e.UserId == id);
         }
-       
-        public JsonResult GetValues(/*string sidx, string sord, int page, int rows*/) //Gets the todo Lists.  
-        {
-            int pageIndex = Convert.ToInt32(10/*page*/) - 1;
-            int pageSize = 5;//rows;
-            int page = 1;
-            var Results = _context.User.Select(
-                a => new
-                {
-                    a.Name,
-                    //a.Type,
-                    a.Email,
-                    //a.Status
-                }).ToList();
-            int totalRecords = Results.Count();
-            var totalPages = (int)Math.Ceiling((float)totalRecords / 5/*(float)rows*/);
-            //if (sord.ToUpper() == "DESC")
-            //{
-            //    Results = Results.OrderByDescending(s => s.Name);
-            //    Results = Results.Skip(pageIndex * pageSize).Take(pageSize);
-            //}
-            //else
-            //{
-            //    Results = Results.OrderBy(s => s.Name);
-            //    Results = Results.Skip(pageIndex * pageSize).Take(pageSize);
-            //}
-            var jsonData = new
-            {
-                total = totalPages,
-                page,
-                records = totalRecords,
-                rows = Results
-            };
-         //   return Json(jsonData);
-         //   var userlist = _context.User.ToList<User>();
-            return Json(new { rows = Results });
-
-            //var citylist = new SelectList(_context.User.ToList<User>(), "Name", "Email");
-            //return Json(citylist);
-        }
-
     }
 }

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Agenciapp.Models;
+using AgenciappHome.Models;
 
-namespace Agenciapp.Controllers
+namespace AgenciappHome.Controllers
 {
     public class OfficesController : Controller
     {
@@ -58,12 +58,9 @@ namespace Agenciapp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OfficeId,AgencyId,Name")] Office office)
         {
-            Agency agency = _context.Agency.First();
             if (ModelState.IsValid)
             {
                 office.OfficeId = Guid.NewGuid();
-                office.Agency = agency;
-                office.AgencyId = agency.AgencyId;
                 _context.Add(office);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

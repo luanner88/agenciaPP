@@ -5,25 +5,41 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Agenciapp.Models;
+using AgenciappHome.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.Text;
+using NPOI.SS.UserModel;
+using NPOI.HSSF.UserModel;
+using System.IO;
+using NPOI.XSSF.UserModel;
 
-namespace Agenciapp.Controllers
+namespace AgenciappHome.Controllers
 {
     public class ContactsController : Controller
     {
         private readonly databaseContext _context;
-
-        public ContactsController(databaseContext context)
+        IHostingEnvironment _env;
+        public ContactsController(databaseContext context, IHostingEnvironment env)
         {
             _context = context;
+            _env=env;
         }
 
         // GET: Contacts
         public async Task<IActionResult> Index()
         {
-            var databaseContext = _context.Contact.Include(c => c.Address).Include(c => c.Client).Include(c => c.Phone);
+            var databaseContext = _context.Contact.Include(c => c.Client);
             return View(await databaseContext.ToListAsync());
         }
+        // GET: Clients
+        public IActionResult ImportContact()
+        {
+
+            return View();
+        }
+
+
 
         // GET: Contacts/Details/5
         public async Task<IActionResult> Details(Guid? id)
@@ -34,9 +50,7 @@ namespace Agenciapp.Controllers
             }
 
             var contact = await _context.Contact
-                .Include(c => c.Address)
                 .Include(c => c.Client)
-                .Include(c => c.Phone)
                 .FirstOrDefaultAsync(m => m.ContactId == id);
             if (contact == null)
             {
@@ -49,9 +63,7 @@ namespace Agenciapp.Controllers
         // GET: Contacts/Create
         public IActionResult Create()
         {
-            ViewData["AddressId"] = new SelectList(_context.Address, "AddressId", "AddressLine1");
-            ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "LastName");
-            ViewData["PhoneId"] = new SelectList(_context.Phone, "PhoneId", "Number");
+            ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "Email");
             return View();
         }
 
@@ -60,53 +72,17 @@ namespace Agenciapp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ContactId,ClientId,Name,LastName,CreatedAt,AddressId,PhoneId")] Contact contact, [Bind("PhoneId,ReferenceId,Type,Current,Number")] Phone phone, [Bind("AddressId,ReferenceId,Current,Type,AddressLine1,AddressLine2,City,State,Zip,Country,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy")] Address address)
+        public async Task<IActionResult> Create([Bind("ContactId,ClientId,Name,LastName,CreatedAt,Email")] Contact contact)
         {
             if (ModelState.IsValid)
             {
                 contact.ContactId = Guid.NewGuid();
-
-                //Add Agency
-                contact.Client = _context.Client.First();//Pasar cliente
                 contact.CreatedAt = DateTime.Now;
-
-                //add Phone
-                Phone movil = new Phone();
-                movil.PhoneId = Guid.NewGuid();
-                movil.Number = phone.Number;
-                movil.ReferenceId = contact.ClientId;
-                movil.Type = "Móvil";
-                movil.Current = true;
-                _context.Phone.Add(movil);
-                contact.Phone = movil;
-
-                //add Addresss
-                Address a = new Address();
-                a.AddressId = Guid.NewGuid();
-                a.ReferenceId = contact.ClientId;
-                a.Current = true;
-                a.Type = "Oficina";
-                a.AddressLine1 = address.AddressLine1;
-                a.City = address.City;
-                a.State = address.State;
-                a.Country = "Usa";
-                a.CreatedAt = DateTime.Now;
-                a.CreatedBy = _context.User.First().UserId;
-                a.UpdatedAt = DateTime.Now;
-                a.UpdatedBy = _context.User.First().UserId;
-                _context.Address.Add(a);
-                contact.Address = a;
-
-                _context.Add(contact);
-
-
                 _context.Add(contact);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AddressId"] = new SelectList(_context.Address, "AddressId", "AddressLine1", contact.AddressId);
-            ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "LastName", contact.ClientId);
-            ViewData["PhoneId"] = new SelectList(_context.Phone, "PhoneId", "Number", contact.PhoneId);
+            ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "Email", contact.ClientId);
             return View(contact);
         }
 
@@ -123,9 +99,7 @@ namespace Agenciapp.Controllers
             {
                 return NotFound();
             }
-            ViewData["AddressId"] = new SelectList(_context.Address, "AddressId", "AddressLine1", contact.AddressId);
-            ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "LastName", contact.ClientId);
-            ViewData["PhoneId"] = new SelectList(_context.Phone, "PhoneId", "Number", contact.PhoneId);
+            ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "Email", contact.ClientId);
             return View(contact);
         }
 
@@ -134,7 +108,7 @@ namespace Agenciapp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("ContactId,ClientId,Name,LastName,CreatedAt,AddressId,PhoneId")] Contact contact)
+        public async Task<IActionResult> Edit(Guid id, [Bind("ContactId,ClientId,Name,LastName,CreatedAt,Email")] Contact contact)
         {
             if (id != contact.ContactId)
             {
@@ -161,9 +135,7 @@ namespace Agenciapp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AddressId"] = new SelectList(_context.Address, "AddressId", "AddressLine1", contact.AddressId);
-            ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "LastName", contact.ClientId);
-            ViewData["PhoneId"] = new SelectList(_context.Phone, "PhoneId", "Number", contact.PhoneId);
+            ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "Email", contact.ClientId);
             return View(contact);
         }
 
@@ -176,9 +148,7 @@ namespace Agenciapp.Controllers
             }
 
             var contact = await _context.Contact
-                .Include(c => c.Address)
                 .Include(c => c.Client)
-                .Include(c => c.Phone)
                 .FirstOrDefaultAsync(m => m.ContactId == id);
             if (contact == null)
             {
@@ -202,6 +172,120 @@ namespace Agenciapp.Controllers
         private bool ContactExists(Guid id)
         {
             return _context.Contact.Any(e => e.ContactId == id);
+        }
+
+
+        public ActionResult OnPostImport()
+        {
+            IFormFile file = Request.Form.Files[0];
+            string folderName = "Upload";
+            string webRootPath = _env.WebRootPath;
+            string newPath = Path.Combine(webRootPath, folderName);
+            StringBuilder sb = new StringBuilder();
+            if (!Directory.Exists(newPath))
+            {
+                Directory.CreateDirectory(newPath);
+            }
+            if (file.Length > 0)
+            {
+                string sFileExtension = Path.GetExtension(file.FileName).ToLower();
+                ISheet sheet;
+                string fullPath = Path.Combine(newPath, file.FileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                    stream.Position = 0;
+                    if (sFileExtension == ".xls")
+                    {
+                        HSSFWorkbook hssfwb = new HSSFWorkbook(stream); //This will read the Excel 97-2000 formats  
+                        sheet = hssfwb.GetSheetAt(0); //get first sheet from workbook  
+                    }
+                    else
+                    {
+                        XSSFWorkbook hssfwb = new XSSFWorkbook(stream); //This will read 2007 Excel format  
+                        sheet = hssfwb.GetSheetAt(0); //get first sheet from workbook   
+                    }
+                    IRow headerRow = sheet.GetRow(0); //Get Header Row
+                    int cellCount = headerRow.LastCellNum;
+
+                    //sb.Append("<table class='table'><tr>");
+                    //for (int j = 0; j < cellCount; j++)
+                    //{
+                    //    NPOI.SS.UserModel.ICell cell = headerRow.GetCell(j);
+                    //    if (cell == null || string.IsNullOrWhiteSpace(cell.ToString())) continue;
+                    //    sb.Append("<th>" + cell.ToString() + "</th>");
+                    //}
+                    //sb.Append("</tr>");
+                    //sb.AppendLine("<tr>");
+                    //for (int i = (sheet.FirstRowNum + 1); i <= sheet.LastRowNum; i++) //Read Excel File
+                    //{
+                    //    IRow row = sheet.GetRow(i);
+                    //    if (row == null) continue;
+                    //    if (row.Cells.All(d => d.CellType == CellType.Blank)) continue;
+                    //    for (int j = row.FirstCellNum; j < cellCount; j++)
+                    //    {
+                    //        if (row.GetCell(j) != null)
+                    //            sb.Append("<td>" + row.GetCell(j).ToString() + "</td>");
+                    //    }
+                    //    sb.AppendLine("</tr>");
+                    //}
+                    //sb.Append("</table>");
+
+
+                    for (int i = (sheet.FirstRowNum + 1); i <= sheet.LastRowNum; i++) //Read Excel File
+                    {
+                        IRow row = sheet.GetRow(i);
+                        if (row == null) continue;
+
+                        Contact c;
+                        if (!_context.Contact.Where(x => x.Name == row.GetCell(2).ToString() && x.LastName == row.GetCell(3).ToString()).Any())
+                        {
+                            c = new Contact();
+                            c.ClientId = Guid.NewGuid();
+                            c.Name = row.GetCell(0).ToString();
+                            c.LastName = row.GetCell(1).ToString();
+                            c.CreatedAt = DateTime.Now;
+                            c.Client = _context.Client.Where(x => x.Name == row.GetCell(0).ToString() && x.LastName == row.GetCell(1).ToString()).FirstOrDefault();
+                            _context.Contact.Add(c);
+
+                        }
+                        else
+                        {
+                            c = _context.Contact.Where(x => x.Name == row.GetCell(2).ToString() && x.LastName == row.GetCell(3).ToString()).FirstOrDefault();
+                        }
+                        if (!_context.Phone.Where(x => x.ReferenceId == c.ClientId && x.Number == row.GetCell(5).ToString()).Any())
+                        {
+                            Phone phone;
+                            phone = new Phone();
+                            phone.PhoneId = Guid.NewGuid();
+                            phone.Type = row.GetCell(4).ToString();
+                            phone.Number = row.GetCell(5).ToString();
+                            phone.Current = true;
+                            phone.ReferenceId = c.ContactId;
+                            _context.Phone.Add(phone);
+                        }
+                        if (!_context.Address.Where(x => x.ReferenceId == c.ClientId && x.Type == row.GetCell(6).ToString()).Any())
+                        {
+                            Address add = new Address();
+                            add.AddressId = Guid.NewGuid();
+                            add.Type = row.GetCell(6).ToString();
+                            add.AddressLine1 = row.GetCell(7).ToString();
+                            add.City = row.GetCell(8).ToString();
+                            add.State = row.GetCell(9).ToString();
+                            add.Country = row.GetCell(10).ToString();
+                            add.ReferenceId = c.ClientId;
+                            add.CreatedAt = DateTime.Now;
+                            add.CreatedBy = _context.User.FirstOrDefault().UserId;//Ver Aqui va el usuario registrado
+                            add.UpdatedAt = DateTime.Now;
+                            add.UpdatedBy = _context.User.FirstOrDefault().UserId;//Ver Aqui va el usuario registrado
+                            _context.Address.Add(add);
+                        }
+                    }
+                    _context.SaveChanges();
+                    ViewData["Message"] = "Los datos han sido importados satisfactoriamente";
+                }
+            }
+            return this.Content(sb.ToString());
         }
     }
 }

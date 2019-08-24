@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AgenciappHome.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Agenciapp.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
-namespace Agenciapp
+namespace AgenciappHome
 {
     public class Startup
     {
@@ -37,19 +36,12 @@ namespace Agenciapp
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            var connection = @"Server=desktop-ccknsdd; Database=database;Trusted_Connection=True;User Id=sa;Password = Maluma123";
+
+            var connection = @"Server=desktop-pm15ctg; Initial Catalog = database; Integrated Security = True; User Id = sa; Password = Maluma123";
             services.AddDbContext<databaseContext>(options => options.UseSqlServer(connection));
 
-            services.Configure<IdentityOptions>(options =>
-            {
-                // Default Password settings.
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 6;
-                options.Password.RequiredUniqueChars = 1;
-            });
+    
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +67,10 @@ namespace Agenciapp
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            string sAppPath = env.ContentRootPath; //Application Base Path
+            string swwwRootPath = env.WebRootPath;  //wwwroot folder path
+
         }
     }
 }

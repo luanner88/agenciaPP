@@ -1,4 +1,4 @@
-﻿@model Agenciapp.Models.Contact
+﻿@model AgenciappHome.Models.Contact
 
 @{
     ViewData["Title"] = "Delete";
@@ -31,22 +31,16 @@
             @Html.DisplayFor(model => model.CreatedAt)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Address)
+            @Html.DisplayNameFor(model => model.Email)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Address.AddressLine1)
+            @Html.DisplayFor(model => model.Email)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Client)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Client.LastName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Phone.Number)
+            @Html.DisplayFor(model => model.Client.Email)
         </dd>
     </dl>
     

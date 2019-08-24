@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Agenciapp.Models
+namespace AgenciappHome.Models
 {
     public partial class ValorAduanal
     {
         public ValorAduanal()
         {
-            Order = new HashSet<Order>();
+            ValorAduanalItem = new HashSet<ValorAduanalItem>();
         }
 
         public Guid ValorAduanalId { get; set; }
@@ -18,6 +18,6 @@ namespace Agenciapp.Models
         public string Article { get; set; }
         public string Observaciones { get; set; }
 
-        public ICollection<Order> Order { get; set; }
+        public ICollection<ValorAduanalItem> ValorAduanalItem { get; set; }
     }
 }

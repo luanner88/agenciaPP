@@ -1,0 +1,70 @@
+﻿@model IEnumerable<AgenciappHome.Models.TipoPago>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-header row">
+    <div class="content-header-left col-md-6 col-xs-12 mb-2">
+        <h3 class="content-header-title mb-0">Listado de Tipos de Pago</h3>
+        <div class="row breadcrumbs-top">
+            <div class="breadcrumb-wrapper col-xs-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">
+                        <a href="index.html">Tipos de Pago</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="content-header-right col-md-6 col-xs-12">
+        <a class="btn btn-primary btn-min-width mr-1 mb-1 float-md-right" asp-action="Create"> <i class="fa fa-plus"></i> Nuevo</a>
+    </div>
+</div>
+
+<div class="content-body">
+    <section id="basic-form-layouts">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body collapse in">
+                        <div class="card-block">
+
+
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Type)
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Type)
+                                            </td>
+                                            <td>
+                                                <a asp-action="Edit" asp-route-id="@item.TipoPagoId">Edit</a> |
+                                                <a asp-action="Details" asp-route-id="@item.TipoPagoId">Details</a> |
+                                                <a asp-action="Delete" asp-route-id="@item.TipoPagoId">Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+

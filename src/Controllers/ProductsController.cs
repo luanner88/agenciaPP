@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Agenciapp.Models;
+using AgenciappHome.Models;
 
-namespace Agenciapp.Controllers
+namespace AgenciappHome.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly databaseContext _context;
-        private static List<Product> listProduct = new List<Product>();
 
         public ProductsController(databaseContext context)
         {
@@ -23,9 +22,6 @@ namespace Agenciapp.Controllers
         public async Task<IActionResult> Index()
         {
             var databaseContext = _context.Product.Include(p => p.Agency);
-
-            ViewData["ProductId"] = new SelectList(_context.Product, "ProductId", "Description");
-
             return View(await databaseContext.ToListAsync());
         }
 
