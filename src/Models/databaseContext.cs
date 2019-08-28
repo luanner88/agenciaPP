@@ -285,6 +285,8 @@ namespace AgenciappHome.Models
 
                 entity.Property(e => e.PackageItemId).ValueGeneratedNever();
 
+                entity.Property(e => e.Description).HasMaxLength(250);
+
                 entity.Property(e => e.Qty).HasColumnType("decimal(10, 2)");
 
                 entity.HasOne(d => d.Package)
@@ -324,9 +326,20 @@ namespace AgenciappHome.Models
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Description)
+                entity.Property(e => e.Color)
                     .IsRequired()
-                    .HasMaxLength(250);
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Description).HasMaxLength(250);
+
+                entity.Property(e => e.TallaMarca)
+                    .IsRequired()
+                    .HasColumnName("Talla/Marca")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Tipo)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.Agency)
                     .WithMany(p => p.Product)

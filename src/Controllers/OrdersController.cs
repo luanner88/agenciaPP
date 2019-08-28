@@ -24,11 +24,13 @@ namespace AgenciappHome.Controllers
         private static List<string> listValor;
         private static Client client;
         IHostingEnvironment _env;
+        static Guid? editada;
 
         public OrdersController(databaseContext context, IHostingEnvironment env)
         {
             _context = context;
             _env=env;
+           
         }
 
         // GET: Orders
@@ -36,11 +38,39 @@ namespace AgenciappHome.Controllers
         {
 
             var databaseContext = _context.Order.Include(o => o.Agency).Include(o => o.Client).Include(o => o.Contact).Include(o => o.Office).Include(o => o.TipoPago).Include(o => o.User).Include(o => o.ValorAduanalItem);
-
             return View(await databaseContext.ToListAsync());
         }
 
-      
+
+        [HttpPost]
+        public IActionResult SearchNumber([FromBody]string searchNumber)
+        {
+
+             List<Order> listOrders = _context.Order.Where(x => x.Number.Contains(searchNumber)).ToList();
+             return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        public IActionResult SearchClient([FromBody]string searchClient)
+        {
+            //preguntar si es un digito o una letra
+            //si es digito ??
+            //si es letra
+            string[] datos = searchClient.Split(new char[] { ' ' });
+            List<Order> listOrders = _context.Order.Where(x => x.Client.Name.Contains(datos[0]) && x.Client.Name.Contains(datos[1])).ToList();
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        public IActionResult SearchStatus([FromBody]string searchStatus)
+        {
+
+            List<Order> listOrders = _context.Order.Where(x => x.Status== searchStatus).ToList();
+            return RedirectToAction(nameof(Index));
+        }
+
+        //public void SearchOrder(string orden)
+        //{
+
+        //}
 
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(Guid? id)
@@ -70,14 +100,29 @@ namespace AgenciappHome.Controllers
         public IActionResult Create()
         {
             ViewData["AgencyId"] = new SelectList(_context.Agency, "AgencyId", "LegalName");
-            ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "Email");
-            ViewData["ContactId"] = new SelectList(_context.Contact, "ContactId", "Email");
+            //ViewData["ClientId"] = new SelectList(_context.Client, "ClientId", "Email");
+            //ViewData["ContactId"] = new SelectList(_context.Contact, "ContactId", "Email");
             ViewData["OfficeId"] = new SelectList(_context.Office, "OfficeId", "Name");
             ViewData["TipoPagoId"] = new SelectList(_context.TipoPago, "TipoPagoId", "Type");
             ViewData["UserId"] = new SelectList(_context.User, "UserId", "Email");
             ViewData["ValorAduanalId"] = new SelectList(_context.ValorAduanal, "Name", "Article");
 
             ViewData["ProductId"] = new SelectList(_context.Product, "Code", "Description");
+
+            ViewData["ClientName"] = new SelectList(_context.Client, "ClientId", "Name");
+            ViewData["ClientLastName"] = new SelectList(_context.Client, "ClientId", "LastName");
+            ViewData["ClientEmail"] = new SelectList(_context.Client, "ClientId", "Email");
+
+            ViewData["Movil"] = new SelectList(_context.Phone.Where(x=>x.Type=="Móvil"), "PhoneId", "Number");
+            ViewData["PhoneCasa"] = new SelectList(_context.Phone.Where(x => x.Type == "Casa"), "PhoneId", "Number");
+            ViewData["PhoneOficina"] = new SelectList(_context.Phone.Where(x => x.Type == "Oficina"), "PhoneId", "Number");
+
+            ViewData["ContactName"] = new SelectList(_context.Contact, "ContactId", "Name");
+            ViewData["ContactLastName"] = new SelectList(_context.Contact, "ContactId", "LastName");
+            ViewData["ContactEmail"] = new SelectList(_context.Contact, "ContactId", "Email");
+
+
+
 
             listProduct = new List<string>();
             listValor = new List<string>();
@@ -122,19 +167,10 @@ namespace AgenciappHome.Controllers
         {
 
             listValor.Add(valor);
-            ViewBag.totalVA +=_context.ValorAduanal.Find(Guid.Parse(valor)).Value;
+            //ViewBag.totalVA +=_context.ValorAduanal.Find(Guid.Parse(valor)).Value;
 
         }
 
-
-
-        [HttpPost]
-        public void AddClient([FromBody]string client)
-        {
-
-            int i = 0;
-
-        }
         [HttpPost]
         public void Importar()
         {
@@ -156,14 +192,16 @@ namespace AgenciappHome.Controllers
                 order.Agency = _context.Agency.First();
                 order.Office = _context.Office.First();
                 order.User = _context.User.First();
-              
+                order.Type = "Mixto";//Ver esto esta estatico
                 order.Date = DateTime.Now.Date;
                 order.Number = "mx" + DateTime.Now.ToString("MMddyyyyHHmm");
+
                 //Crear un Pacquete
                 Package package = new Package();
-                //package.PackageId = Guid.NewGuid();
+                package.PackageId = Guid.NewGuid();
                 package.PackageNavigation = order;
                 _context.Add(package);
+                order.Package = package;
               
 
                 for (int i = 0; i < listProduct.Count; i++)
@@ -172,8 +210,8 @@ namespace AgenciappHome.Controllers
                     packageItem.PackageItemId =  Guid.NewGuid();
                     packageItem.PackageId = package.PackageId;
                     packageItem.Package = package;
-                    packageItem.ProductId = Guid.Parse(listProduct[i]);
-                    packageItem.Product= _context.Product.Find(Guid.Parse(listValor[i]));
+                    packageItem.Product = _context.Product.Where(x=>x.Code==listProduct[i]).First();
+                    packageItem.ProductId = packageItem.Product.ProductId;
                     _context.Add(packageItem);
                 }
               
@@ -182,10 +220,11 @@ namespace AgenciappHome.Controllers
                     ValorAduanalItem value = new ValorAduanalItem();
                     value.ValorAduanalItemId = Guid.NewGuid();
                     value.OrderId = order.OrderId;
-                    var va = _context.ValorAduanal.Find(Guid.Parse(listValor[i]));
-                    value.ValorAduanalId = Guid.Parse(listValor[i]);
-                    value.ValorAduanal = va;
-                    order.ValorAduanal += va.Value;
+                    value.Order = order;
+                    value.ValorAduanal = _context.ValorAduanal.Where(x=>x.Name== listValor[i]).First();
+                    value.ValorAduanalId = value.ValorAduanal.ValorAduanalId;
+                     order.ValorAduanal += value.ValorAduanal.Value;
+                    order.ValorAduanalItem.Add(value);
                     _context.Add(value);
                 }
                 order.Amount = order.ValorAduanal + (order.CantLb * order.PriceLb) + order.OtrosCostos;
@@ -207,10 +246,26 @@ namespace AgenciappHome.Controllers
             ViewData["UserId"] = new SelectList(_context.User, "UserId", "Email", order.UserId);
             return View(order);
         }
-
-        // GET: Orders/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+    
+        public async Task<IActionResult> Edit2()
         {
+           Order or= _context.Order.Find(editada);
+            PackageItem packageItem = new PackageItem();
+            packageItem.PackageItemId = Guid.NewGuid();
+            packageItem.PackageId = _context.Package.Where(x => x.PackageNavigation.OrderId == editada).FirstOrDefault().PackageId;
+            packageItem.Package = _context.Package.Where(x=>x.PackageNavigation.OrderId==editada).FirstOrDefault();
+            packageItem.ProductId = _context.Product.First().ProductId;
+            packageItem.Product = _context.Product.First();
+            _context.Add(packageItem);
+            _context.SaveChanges();
+            return View(or);
+        }
+
+            // GET: Orders/Edit/5
+            public async Task<IActionResult> Edit(Guid? id)
+        {
+
+            editada = id;
             if (id == null)
             {
                 return NotFound();
@@ -268,9 +323,24 @@ namespace AgenciappHome.Controllers
             ViewData["OfficeId"] = new SelectList(_context.Office, "OfficeId", "Name", order.OfficeId);
             ViewData["TipoPagoId"] = new SelectList(_context.TipoPago, "TipoPagoId", "Type", order.TipoPagoId);
             ViewData["UserId"] = new SelectList(_context.User, "UserId", "Email", order.UserId);
-            return View(order);
-        }
 
+
+            
+            PackageItem packageItem = new PackageItem();
+            packageItem.PackageItemId = Guid.NewGuid();
+            packageItem.PackageId = _context.Package.Where(x => x.PackageNavigation.OrderId == editada).FirstOrDefault().PackageId;
+            packageItem.Package = _context.Package.Where(x => x.PackageNavigation.OrderId == editada).FirstOrDefault();
+            packageItem.ProductId = _context.Product.First().ProductId;
+            packageItem.Product = _context.Product.First();
+            _context.Add(packageItem);
+            _context.SaveChanges();
+           
+
+
+
+            return View(order.OrderId.ToString(), order);
+        }
+      
         // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
@@ -679,5 +749,167 @@ namespace AgenciappHome.Controllers
 
         ////}
 
+        //public Client GetClientForName([FromBody]string id)
+        //{
+
+        //    return _context.Client.Where(x => x.ClientId == Guid.Parse(id)).First();
+        //}
+        //[HttpGet]
+        //public Client GetClientForName([FromBody]string id)
+        //{
+ 
+        //        return _context.Client.Where(x => x.ClientId == Guid.Parse(id)).First();
+          
+        //}
+    //[HttpPost]
+    //    public JsonResult GetClientForName([FromBody]string id)
+    //    {
+    //        Guid idClient = Guid.Parse(id);
+    //        Client output = _context.Client.Where(x => x.ClientId == idClient).First();
+    //        var result = new { Name = output.Name, LastName = output.LastName };
+
+    //        ViewData["Movil"] = new SelectList(_context.Phone.Where(x => x.Type == "Móvil"), "PhoneId", "Number");
+    //        ViewData["PhoneCasa"] = new SelectList(_context.Phone.Where(x => x.Type == "Casa"), "PhoneId", "Number");
+    //        ViewData["PhoneOficina"] = new SelectList(_context.Phone.Where(x => x.Type == "Oficina"), "PhoneId", "Number");
+
+    //        ViewData["ContactName"] = new SelectList(_context.Contact.Where(x=>x.ClientId==idClient), "ContactId", "Name");
+    //        ViewData["ContactLastName"] = new SelectList(_context.Contact.Where(x => x.ClientId == idClient), "ContactId", "LastName");
+    //        ViewData["ContactEmail"] = new SelectList(_context.Contact.Where(x => x.ClientId == idClient), "ContactId", "Email");
+
+    //       // string name = output.Name;
+    //       //return Json(name);
+           
+
+    //        //return Json(result);
+
+    //        return Json(new { client=output});
+
+
+    //    }
+        [HttpPost]
+        public ActionResult GetClientForName([FromBody]string id)
+        {
+            // System.Threading.Thread.Sleep(2000);  /*simulating slow connection*/
+            Guid idClient = Guid.Parse(id);
+          Phone phone= _context.Phone.Where(x => x.ReferenceId == idClient).First();
+            Address address = _context.Address.Where(x => x.ReferenceId == idClient).First();
+              return Json(new { idAddress = address.AddressId, calle = address.AddressLine1, city = address.City, state = address.State, zip=address.Zip, idPhone = phone.PhoneId});
+        }
+
+      
+
+        [HttpPost]
+        public void AddClient([FromBody] string [] list)
+        {
+            Client client;
+            if (!_context.Client.Where(x => x.Email == list[2]).Any())
+            {
+
+                client = new Client();
+                client.ClientId = Guid.NewGuid();
+                client.CreatedAt = DateTime.Now;
+                client.Agency = _context.Agency.First();
+                client.Name = list[0];
+                client.LastName = list[1];
+                client.Email = list[2];
+                _context.Add(client);
+
+            }
+            else
+                client = _context.Client.Where(x => x.Email == list[2]).First();
+
+                Phone phone = new Phone();
+                phone.PhoneId = client.ClientId = Guid.NewGuid();
+                phone.ReferenceId = client.ClientId;
+                phone.Number = list[3];
+                phone.Current = true;
+                phone.Type = "Móvil";
+                _context.Add(phone);
+
+                Address add = new Address();
+                add.AddressId = Guid.NewGuid();
+                add.ReferenceId = client.ClientId;
+                add.AddressLine1 = "ver";//list[4];
+                add.City = list[5];
+                add.State = list[6];
+                add.Zip = list[7];
+                add.Country = "Estados Unidos";
+                add.Type = "Casa";
+                add.CreatedAt = DateTime.Now;
+                add.CreatedBy = _context.User.FirstOrDefault().UserId;//Ver Aqui va el usuario registrado
+                add.UpdatedAt = DateTime.Now;
+                add.UpdatedBy = _context.User.FirstOrDefault().UserId;//Ver Aqui va el usuario registrado
+                _context.Add(add);
+                _context.SaveChanges();
+            
+           // else
+                //ViewBag.Message = "Ya existe un cliente rgistardo con ese corre.";
+        }
+
+       [HttpPost]
+        public void AddContact([FromBody] string[] list)
+        {
+            Client client = new Client();
+            client.ClientId = Guid.NewGuid();
+            client.CreatedAt = DateTime.Now;
+            client.Agency = _context.Agency.First();
+            client.Name = list[0];
+            client.LastName = list[1];
+            client.Email = list[2];
+            _context.Add(client);
+
+            Phone phone = new Phone();
+            phone.PhoneId = client.ClientId = Guid.NewGuid();
+            phone.ReferenceId = client.ClientId;
+            phone.Number = list[3];
+            phone.Current = true;
+            phone.Type = "Móvil";
+            _context.Add(phone);
+
+            Address add = new Address();
+            add.AddressId = Guid.NewGuid();
+            add.ReferenceId = client.ClientId;
+            add.AddressLine1 = "ver";//list[4];
+            add.City = list[5];
+            add.State = list[6];
+            add.Zip = list[7];
+            add.Country = "Estados Unidos";
+            add.Type = "Casa";
+            add.CreatedAt = DateTime.Now;
+            add.CreatedBy = _context.User.FirstOrDefault().UserId;//Ver Aqui va el usuario registrado
+            add.UpdatedAt = DateTime.Now;
+            add.UpdatedBy = _context.User.FirstOrDefault().UserId;//Ver Aqui va el usuario registrado
+            _context.Add(add);
+            _context.SaveChanges();
+        }
+
+      
+      
+
+
+        //public JsonResult InsertCustomers(List<Customer> customers)
+        //{
+        //    using (CustomersEntities entities = new CustomersEntities())
+        //    {
+        //        //Truncate Table to delete all old records.
+        //        entities.Database.ExecuteSqlCommand("TRUNCATE TABLE [Customers]");
+
+        //        //Check for NULL.
+        //        if (customers == null)
+        //        {
+        //            customers = new List<Customer>();
+        //        }
+
+        //        //Loop and insert records.
+        //        foreach (Customer customer in customers)
+        //        {
+        //            entities.Customers.Add(customer);
+        //        }
+        //        int insertedRecords = entities.SaveChanges();
+        //        return Json(insertedRecords);
+        //    }
+        //}
+
     }
+
 }

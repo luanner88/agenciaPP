@@ -15,6 +15,9 @@ namespace AgenciappHome.Models
         public Guid AgencyId { get; set; }
         public string Code { get; set; }
         public string Description { get; set; }
+        public string Tipo { get; set; }
+        public string Color { get; set; }
+        public string TallaMarca { get; set; }
 
         public Agency Agency { get; set; }
         public ICollection<PackageItem> PackageItem { get; set; }

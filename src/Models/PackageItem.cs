@@ -9,6 +9,7 @@ namespace AgenciappHome.Models
         public Guid PackageId { get; set; }
         public Guid ProductId { get; set; }
         public decimal Qty { get; set; }
+        public string Description { get; set; }
 
         public Package Package { get; set; }
         public Product Product { get; set; }

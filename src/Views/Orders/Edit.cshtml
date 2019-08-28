@@ -11,6 +11,119 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <form asp-action="Edit2">
+
+            <div class="col-md-9">
+
+                <select @*asp-for="ProductId"*@ class="col-md-6 form-control" asp-items="ViewBag.ProductId" placeholder="Tipo" id="txtName"></select>
+            </div>
+            <div class="col-md-3">
+
+                <input type="submit" value="Adicionar" class="btn btn-primary btn-min-width mr-1 mb-1" />
+            </div>
+
+
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="OrderId" />
+            <div class="form-group">
+                <label asp-for="AgencyId" class="control-label"></label>
+                <select asp-for="AgencyId" class="form-control" asp-items="ViewBag.AgencyId"></select>
+                <span asp-validation-for="AgencyId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OfficeId" class="control-label"></label>
+                <select asp-for="OfficeId" class="form-control" asp-items="ViewBag.OfficeId"></select>
+                <span asp-validation-for="OfficeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClientId" class="control-label"></label>
+                <select asp-for="ClientId" class="form-control" asp-items="ViewBag.ClientId"></select>
+                <span asp-validation-for="ClientId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Number" class="control-label"></label>
+                <input asp-for="Number" class="form-control" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PriceLb" class="control-label"></label>
+                <input asp-for="PriceLb" class="form-control" />
+                <span asp-validation-for="PriceLb" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CantLb" class="control-label"></label>
+                <input asp-for="CantLb" class="form-control" />
+                <span asp-validation-for="CantLb" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoPagoId" class="control-label"></label>
+                <select asp-for="TipoPagoId" class="form-control" asp-items="ViewBag.TipoPagoId"></select>
+                <span asp-validation-for="TipoPagoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactId" class="control-label"></label>
+                <select asp-for="ContactId" class="form-control" asp-items="ViewBag.ContactId"></select>
+                <span asp-validation-for="ContactId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorPagado" class="control-label"></label>
+                <input asp-for="ValorPagado" class="form-control" />
+                <span asp-validation-for="ValorPagado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Balance" class="control-label"></label>
+                <input asp-for="Balance" class="form-control" />
+                <span asp-validation-for="Balance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OtrosCostos" class="control-label"></label>
+                <input asp-for="OtrosCostos" class="form-control" />
+                <span asp-validation-for="OtrosCostos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorAduanal" class="control-label"></label>
+                <input asp-for="ValorAduanal" class="form-control" />
+                <span asp-validation-for="ValorAduanal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorAduanalItem" class="control-label"></label>
+                <select asp-for="ValorAduanalItem" class="form-control"></select>
+                <span asp-validation-for="ValorAduanalItem" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+
+        </form>
+
+
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="OrderId" />
@@ -105,6 +218,8 @@
                 <span asp-validation-for="ValorAduanalItem" class="text-danger"></span>
             </div>
 
+
+
             @*<table class="table table-striped table-bordered sourced-data">
                 <thead>
                     <tr>
@@ -138,6 +253,8 @@
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
+
+
     </div>
 </div>
 

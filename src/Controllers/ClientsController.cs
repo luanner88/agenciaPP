@@ -164,6 +164,14 @@ namespace AgenciappHome.Controllers
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var client = await _context.Client.FindAsync(id);
+            foreach (var contact in _context.Contact.Where(x => x.ClientId == client.ClientId))
+            {
+                _context.Contact.Remove(contact);
+            }
+            foreach (var order in _context.Order.Where(x => x.ClientId == client.ClientId))//ver esto no se debe eliminar debe solo cambiar de estado
+            {
+                _context.Order.Remove(order);
+            }
             _context.Client.Remove(client);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

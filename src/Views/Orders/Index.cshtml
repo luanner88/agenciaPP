@@ -32,14 +32,11 @@
                     <div class="card-body collapse in">
                         <div class="card-block">
 
-
-                            <form asp-action="Create" class="number-tab-steps wizard-circle">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="row">
+                                @*<div class="row">
                                     <div class="col-md-4">
                                         <div class="input-icon right">
                                             <i class="fa fa-search"></i>
-                                            <input type="text" class="form-control input-circle" placeholder="No Order">
+                                            <input type="text" class="form-control input-circle" placeholder="No Order" name="search" id="searchNumber">
                                         </div>
 
                                     </div>
@@ -47,23 +44,27 @@
                                     <div class="col-md-4">
                                         <div class="input-icon search-input">
                                             <i class="fa fa-search"></i>
-                                            <input type="text" class="form-control input-circle" placeholder="Nombre, Teléfono o Cliente">
+                                            <input type="text" class="form-control input-circle" placeholder="Nombre o Teléfono del Cliente" id="searchClient">
                                         </div>
 
                                     </div>
                                     <div class="col-md-4">
                                         <div class="input-icon right">
                                             <i class="fa fa-search"></i>
-                                            <input type="text" class="form-control input-circle" placeholder="Estado de Orden">
+                                            @*<input type="text" class="form-control input-circle" placeholder="Estado de Orden" id="searchStatus">
+                                            <select asp-for="Type" class="form-control" placeholder="Estado de Orden" id="searchStatus">
+                                                <option value="Mixto">Mixto</option>
+                                                <option value="Paquete">Paquete</option>
+                                                <option value="Alimentos">Alimentos</option>
+                                                <option value="Medicina">Comida</option>
+                                            </select>
                                         </div>
 
-                                    </div>
-                                    </form>
+                                    </div>*@
 
 
 
-
-                                    <table class="table table-striped table-bordered ">
+                                    <table class="table table-striped table-bordered data-multiple-buttongroups ">
                                         @*sourced-data*@
                                         <thead>
                                             <tr>
@@ -77,21 +78,21 @@
                                                     @Html.DisplayNameFor(model => model.Client)
                                                 </th>
                                                 @*<th>
-                                                    @Html.DisplayNameFor(model => model.Contact)
-                                                </th>*@
+                                @Html.DisplayNameFor(model => model.Contact)
+                            </th>*@
                                                 <th>
                                                     @Html.DisplayNameFor(model => model.Amount)
                                                 </th>
 
                                                 <th>
-                                                    @Html.DisplayNameFor(model => model.ValorAduanalItem)
+                                                   @* @Html.DisplayNameFor(model => model.ValorAduanalItem)*@Value
                                                 </th>
                                                 <th>
                                                     @Html.DisplayNameFor(model => model.ValorAduanal)
                                                 </th>
                                                 @*<th>
-                        @Html.DisplayNameFor(model => model.Package.PackageItem)
-                    </th>*@
+                                @Html.DisplayNameFor(model => model.Package.PackageItem)
+                            </th>*@
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -113,25 +114,22 @@
                                                         @Html.DisplayFor(modelItem => item.Amount)
                                                     </td>
                                                     <td>
-                                                     
-                                                            @if (item.ValorAduanalItem.Count() > 0)
-                                                            {
-                                                                @foreach (var item1 in item.ValorAduanalItem)
-                                                                {
-                                                                    <p>@Html.DisplayFor(modelItem => item1.ValorAduanalId) |</p>
-                                                                   
-                                                                }
-                                                            }
-                                                    
 
+                                                        @if (item.ValorAduanalItem.Count() > 0)
+                                                        {
+                                                            @foreach (var item1 in item.ValorAduanalItem)
+                                                            {
+                                                                <p>@Html.DisplayFor(modelItem => item1.ValorAduanalId) |</p>
+                                                            }
+                                                        }
                                                     </td>
 
                                                     <td>
                                                         @Html.DisplayFor(modelItem => item.ValorAduanal)
                                                     </td>
                                                     <td>
-                                                        <a asp-action="Edit" asp-route-id="@item.OrderId"><i class="ft-edit"></i></a> 
-                                                        <a asp-action="Details" asp-route-id="@item.OrderId"><i class="ft-info"></i></a> 
+                                                        <a asp-action="Edit" asp-route-id="@item.OrderId"><i class="ft-edit"></i></a>
+                                                        <a asp-action="Details" asp-route-id="@item.OrderId"><i class="ft-info"></i></a>
                                                         <a asp-action="Delete" asp-route-id="@item.OrderId"><i class="ft-delete"></i></a>
                                                         <a asp-action="Exxport" asp-route-id="@item.OrderId"><i class="ft-download"></i></a>
                                                     </td>
@@ -144,13 +142,127 @@
 
 
                                 </div>
-                                </div>
                         </div>
+                </div>
             </div>
         </div>
     </section>
 </div>
 
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+         
+            $('#btnAdd').on('click', function () {
+                var txtName = $("#txtValue");
+
+                //alert(txtName.val());
+                var productos = document.getElementById('txtName');
+                var opt = productos.options[productos.selectedIndex];
+
+                ////Get the reference of the Table's TBODY element.
+                var tBody = $("#tblProductos > TBODY")[0];
+
+                ////Add Row.
+                var row = tBody.insertRow(-1);
+
+                ////Add Name cell.
+                var cell = $(row.insertCell(-1));
+                cell.html(opt.value);
+
+                ////Add Country cell.
+                cell = $(row.insertCell(-1));
+                cell.html(opt.text);
+
+                ////Add Button cell.
+                cell = $(row.insertCell(-1));
+                var celCant = $("<input />");
+                celCant.attr("type", "text");
+                celCant.attr("class", "form-control");
+                ///  btnRemove.attr("onclick", "Remove(this);");
+                // btnRemove.val("Remove");
+                cell.append(celCant);
+
+                ////Add Button cell.
+                cell = $(row.insertCell(-1));
+                var btnRemove = $("<input  />");
+                btnRemove.attr("type", "button");
+                btnRemove.attr("class", "btn btn-default");
+                btnRemove.attr("onclick", "Remove(this);");
+                btnRemove.val("Remove");
+                cell.append(btnRemove);
+
+                ////Clear the TextBoxes.
+                //txtName.val("");
+                //txtCountry.val("");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Orders/AddProductos",
+                    data: JSON.stringify(txtName.val()),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (r) {
+                        alert(r + " record(s) inserted.");
+                    }
+
+                });
+
+            });
+
+            $('#searchNumber').on('change', function () {
+                var search = $("#searchNumber");
+                      $.ajax({
+                    type: "POST",
+                    url: "/Orders/SearchNumber",
+                    data: JSON.stringify(search.val()),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (r) {
+                        alert(r + " record(s) inserted.");
+                    }
+
+                });
+            });
+              $('#searchClient').on('change', function () {
+                var search = $("#searchClient");
+                      $.ajax({
+                    type: "POST",
+                    url: "/Orders/SearchClient",
+                    data: JSON.stringify(search.val()),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (r) {
+                        alert(r + " record(s) inserted.");
+                    }
+
+                });
+              });
+
+                    $('#searchStatus').on('change', function () {
+                var search = $("#searchStatus");
+                      $.ajax({
+                    type: "POST",
+                    url: "/Orders/SearchStatus",
+                    data: JSON.stringify(search.val()),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (r) {
+                        alert(r + " record(s) inserted.");
+                    }
+
+                });
+            });
+
+    
 
 
+
+        });
+
+
+    </script>
+}

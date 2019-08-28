@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Agenciapp.Models;
+using AgenciappHome.Models;
 
-namespace Agenciapp.Controllers
+namespace AgenciappHome.Controllers
 {
     public class PackagesController : Controller
     {

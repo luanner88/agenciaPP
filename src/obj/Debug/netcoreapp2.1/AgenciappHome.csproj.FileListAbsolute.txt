@@ -46,6 +46,11 @@ C:\Users\Saul\source\repos\AgenciappHome\AgenciappHome\obj\Debug\netcoreapp2.1\R
 C:\Users\Saul\source\repos\AgenciappHome\AgenciappHome\obj\Debug\netcoreapp2.1\Razor\Views\Orders\Details.g.cshtml.cs
 C:\Users\Saul\source\repos\AgenciappHome\AgenciappHome\obj\Debug\netcoreapp2.1\Razor\Views\Orders\Edit.g.cshtml.cs
 C:\Users\Saul\source\repos\AgenciappHome\AgenciappHome\obj\Debug\netcoreapp2.1\Razor\Views\Orders\Index.g.cshtml.cs
+C:\Users\Saul\source\repos\AgenciappHome\AgenciappHome\obj\Debug\netcoreapp2.1\Razor\Views\Packages\Create.g.cshtml.cs
+C:\Users\Saul\source\repos\AgenciappHome\AgenciappHome\obj\Debug\netcoreapp2.1\Razor\Views\Packages\Delete.g.cshtml.cs
+C:\Users\Saul\source\repos\AgenciappHome\AgenciappHome\obj\Debug\netcoreapp2.1\Razor\Views\Packages\Details.g.cshtml.cs
+C:\Users\Saul\source\repos\AgenciappHome\AgenciappHome\obj\Debug\netcoreapp2.1\Razor\Views\Packages\Edit.g.cshtml.cs
+C:\Users\Saul\source\repos\AgenciappHome\AgenciappHome\obj\Debug\netcoreapp2.1\Razor\Views\Packages\Index.g.cshtml.cs
 C:\Users\Saul\source\repos\AgenciappHome\AgenciappHome\obj\Debug\netcoreapp2.1\Razor\Views\Products\Create.g.cshtml.cs
 C:\Users\Saul\source\repos\AgenciappHome\AgenciappHome\obj\Debug\netcoreapp2.1\Razor\Views\Products\Delete.g.cshtml.cs
 C:\Users\Saul\source\repos\AgenciappHome\AgenciappHome\obj\Debug\netcoreapp2.1\Razor\Views\Products\Details.g.cshtml.cs
