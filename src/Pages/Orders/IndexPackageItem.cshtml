@@ -1,0 +1,324 @@
+﻿@page
+@model Agenciapp.Pages.Orders.IndexPackageItemModel
+
+@{
+    ViewData["Title"] = "IndexPackageItem";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>IndexPackageItem</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Datos de la Orden</h4>
+            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+            <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                    <li><a data-action="close"><i class="ft-x"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body collapse in">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row ">
+                            <select asp-for="@Model.tipoPago" class="form-control hide-search-pago" id="hide_search" asp-items="ViewBag.TipoPagoId" name="TipoPago"></select>
+                        </div>
+                        <div class="form-group row ">
+                            <select asp-for="@Model.type" class="form-control hide-search-paquete" id="hide_search" placeholder="Tipo de paquete">
+                                <option value="Mixto">Mixto</option>
+                                <option value="Paquete">Paquete</option>
+                                <option value="Alimentos">Alimentos</option>
+                                <option value="Medicina">Comida</option>
+                                <option value="Remesas">Remesas</option>
+                            </select>
+                            <span asp-validation-for="@Model.type" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <select asp-for="@Model.listVA" asp-items="ViewBag.ValorAduanalId" multiple="multiple" class="selectpicker"></select>
+                            <h5 name="VA" style="text-align:right;"><i class="icon-eye6"></i> Valor Aduanal: 20</h5>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row ">
+                            <input asp-for="@Model.cantlb" class="form-control" placeholder="Cantidad de lb." type="number" />
+                            <span asp-validation-for="@Model.cantlb" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row ">
+                            <input asp-for="@Model.preciolb" placeholder="Precio por lb" class="form-control" type="number" />
+                            <span asp-validation-for="@Model.preciolb" class="text-danger"></span>
+                            <h5 name="costoLb" style="text-align:right;"><i class="icon-eye6"></i> Costo por lb: 20</h5>
+                        </div>
+                        <div class="form-group row ">
+                            <input asp-for="@Model.otrosgastos" placeholder="Otros Costos" class="form-control" type="number" />
+                            <span asp-validation-for="@Model.otrosgastos" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group row ">
+                            <input asp-for="@Model.valor" placeholder="Valor Pagado" class="form-control" type="number" />
+                            <span asp-validation-for="@Model.valor" class="text-danger"></span>
+
+                        </div>
+                        <hr>
+                        <h5 name="total" style="text-align:right;"><i class="icon-eye6"></i> Precio Total: 60</h5>
+                        <h5 name="total" style="text-align:right;"><i class="icon-eye6"></i> Balance: 10</h5>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Productos</h4>
+            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+            <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                    <li><a data-action="close"><i class="ft-x"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body collapse in">
+            <div class="card-block">
+                <div class="row">
+                    <form method="post">
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label asp-for="@Model.producto" class="control-label"></label>
+                                <select asp-for="@Model.producto" class="form-control" placeholder="Producto" asp-items="@ViewBag.ProductId">
+                                    <option></option>
+                                </select>
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.cantidad" class="control-label"></label>
+                                    <input asp-for="@Model.cantidad" class="form-control" placeholder="Cantidad"></input>
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="@Model.desc" class="form-control" placeholder="Descripción"></input>
+                                </div>
+                                </div>
+                         
+                            <div class="form-group">
+                                <input type="submit" value="Save" class="btn btn-default" name="saveProduct" id="saveProduct" />
+                            </div>
+</form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table" id="tblCustomers">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PackageItem[0].Qty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PackageItem[0].Product.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PackageItem[0].Product.Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PackageItem[0].Product.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PackageItem[0].Product.TallaMarca)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PackageItem[0].Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PackageItem)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Tipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.TallaMarca)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.PackageItemId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.PackageItemId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.PackageItemId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="form-group">
+    <input type="button" value="Save" class="btn btn-warning" id="crearOrden" />
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $("#crearOrden").on('click', function () {
+                $.ajax({
+                type: "POST",
+                url: "/IndexPackageItemModel/EditarOrden",
+                //data: JSON.stringify(customers),
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                success: function (r) {
+                //alert(r + " record(s) inserted.");
+                }
+                });
+            }
+            //$("#saveProduct").on('click', function () {
+            //    //Loop through the Table rows and build a JSON array.
+            //    alert("pepe");
+            //    var txtName = $("#product");
+            //    var txtCant = $("#cant");
+
+            //    //Get the reference of the Table's TBODY element.
+            //    var tBody = $("#tblCustomers > TBODY")[0];
+
+            //    //Add Row.
+            //    var row = tBody.insertRow(-1);
+
+            //     //Add Country cell.
+            //    cell = $(row.insertCell(-1));
+            //    cell.html(txtCant.val());
+
+            //    //Add Name cell.
+            //    var cell = $(row.insertCell(-1));
+            //    cell.html(txtName.val());
+
+            //    //Add Name cell.
+            //    var cell = $(row.insertCell(-1));
+            //    cell.html(txtName.val());
+
+
+            //    //Add Button cell.
+            //    cell = $(row.insertCell(-1));
+            //    var btnRemove = $("<input />");
+            //    btnRemove.attr("type", "button");
+            //    btnRemove.attr("onclick", "Remove(this);");
+            //    btnRemove.val("Remove");
+            //    cell.append(btnRemove);
+
+            //    //Clear the TextBoxes.
+            //    txtName.val("");
+            //    txtCant.val("");
+            //    //        var productos = $('.select2-placeholder-product');
+            //    //            var productos1 = productos.select2('data')[0].text
+
+            //    //            //   var opt = productos.options[productos];
+
+
+            //    //            ////Get the reference of the Table's TBODY element.
+            //    //            var tBody = $("#tblProductos > TBODY")[0];
+
+            //    //            ////Add Row.
+            //    //            var row = tBody.insertRow(-1);
+
+            //    //            ////Add Button cell.
+            //    //            var cell = $(row.insertCell(-1));
+            //    //            var celCant = $("<input />");
+            //    //            celCant.attr("type", "text");
+            //    //            celCant.attr("class", "form-control");
+            //    //            ///  btnRemove.attr("onclick", "Remove(this);");
+            //    //            // btnRemove.val("Remove");
+            //    //            cell.append(celCant);
+
+            //    //            ////Add Name cell.
+            //    //            cell = $(row.insertCell(-1));
+            //    //            cell.html(productos.val());
+
+            //    //            ////Add Country cell.
+            //    //            cell = $(row.insertCell(-1));
+            //    //            cell.html(productos1);
+
+
+            //    //            ////Add Button cell.
+            //    //            cell = $(row.insertCell(-1));
+            //    //            var celNotas = $("<input />");
+            //    //            celNotas.attr("type", "text");
+            //    //            celNotas.attr("class", "form-control");
+            //    //            ///  btnRemove.attr("onclick", "Remove(this);");
+            //    //            // btnRemove.val("Remove");
+            //    //            cell.append(celNotas);
+
+            //    //            ////Add Button cell.
+            //    //            cell = $(row.insertCell(-1));
+            //    //            var btnRemove = $("<input  />");
+            //    //            btnRemove.attr("type", "button");
+            //    //            btnRemove.attr("class", "btn btn-default");
+            //    //            btnRemove.attr("onclick", "Remove(this);");
+            //    //            btnRemove.val("Remove");
+            //    //            cell.append(btnRemove);
+
+            //    //alert("pepe");
+
+            //    //var customers = [];
+            //    //// var ops =[ { id: 94, text: 'pepe' },{ id: 100, text: 'juan' }];
+            //    ////var new_ops = { id: 94, text:'zuly' };
+            //    //// ops.push(new_ops);
+            //    //$("#tblProductos TBODY TR").each(function () {
+            //    //var row = $(this);
+
+            //    //  var PackageItem =
+            //    // PackageItem.Qty = ;
+
+            //    // PackageItem.ProductId = row.find("TD").eq(1).html();
+            //    // });
+            //    //alert("pepe2");
+
+
+            //    ////Send the JSON array to Controller using AJAX.
+            //    //$.ajax({
+            //    //type: "POST",
+            //    //url: "/IndexPackageItemModel/InsertPackage",
+            //    //data: JSON.stringify(customers),
+            //    //contentType: "application/json; charset=utf-8",
+            //    //dataType: 'json',
+            //    //success: function (r) {
+            //    //alert(r + " record(s) inserted.");
+            //    //}
+            //    //});
+            //});
+        });
+    </script>
+}

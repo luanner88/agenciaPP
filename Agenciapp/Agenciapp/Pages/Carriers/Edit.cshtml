@@ -1,0 +1,41 @@
+﻿@page
+@model Agenciapp.Pages.Carriers.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<h4>Carrier</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Carrier.CarrierId" />
+            <div class="form-group">
+                <label asp-for="Carrier.Name" class="control-label"></label>
+                <input asp-for="Carrier.Name" class="form-control" />
+                <span asp-validation-for="Carrier.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Carrier.LastName" class="control-label"></label>
+                <input asp-for="Carrier.LastName" class="form-control" />
+                <span asp-validation-for="Carrier.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

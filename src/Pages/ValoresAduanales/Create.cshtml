@@ -1,0 +1,65 @@
+﻿@page
+@model Agenciapp.Pages.ValoresAduanales.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<h4>ValorAduanal</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ValorAduanal.ValorAduanalId" class="control-label"></label>
+                <input asp-for="ValorAduanal.ValorAduanalId" class="form-control" />
+                <span asp-validation-for="ValorAduanal.ValorAduanalId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorAduanal.Name" class="control-label"></label>
+                <input asp-for="ValorAduanal.Name" class="form-control" />
+                <span asp-validation-for="ValorAduanal.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorAduanal.Description" class="control-label"></label>
+                <input asp-for="ValorAduanal.Description" class="form-control" />
+                <span asp-validation-for="ValorAduanal.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorAduanal.Um" class="control-label"></label>
+                <input asp-for="ValorAduanal.Um" class="form-control" />
+                <span asp-validation-for="ValorAduanal.Um" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorAduanal.Value" class="control-label"></label>
+                <input asp-for="ValorAduanal.Value" class="form-control" />
+                <span asp-validation-for="ValorAduanal.Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorAduanal.Article" class="control-label"></label>
+                <input asp-for="ValorAduanal.Article" class="form-control" />
+                <span asp-validation-for="ValorAduanal.Article" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorAduanal.Observaciones" class="control-label"></label>
+                <input asp-for="ValorAduanal.Observaciones" class="form-control" />
+                <span asp-validation-for="ValorAduanal.Observaciones" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

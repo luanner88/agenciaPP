@@ -1,0 +1,511 @@
+﻿@page
+@model Agenciapp.Pages.Orders.CreateContactModel
+
+@{
+    ViewData["Title"] = "CreateContact";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Cliente</h4>
+                        <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <button type="submit" class="btn btn-primary btn-min-width mr-1 mb-1" id="nuevoCliente">
+                                <i class="fa fa-plus-circle"></i>  Nuevo
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-body collapse in">
+                        <div class="card-block">
+
+                            <div class="col-md-12">
+                                <div class="form-group row ">
+                                    <select asp-for="Contact.ClientId" class="form-control select2-placeholder-clientName" style="display:none" id="single-placeholder" asp-items="ViewBag.ClientId" name="selectClientName">
+                                        <option></option>
+                                    </select>
+                                    <input asp-for="Contact.Client.ClientId" type="hidden" class="form-control" id="inputClientName" placeholder="Nombre" name="inputClientName"></input>
+                                    @* <select asp-for="ClientId" class="form-control" asp-items="ViewBag.ClientId"></select>*@
+
+                                    <span asp-validation-for="Contact.Client.ClientId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group row ">
+                                    <select asp-for="Contact.Client.LastName" class="form-control select2-placeholder-clientLastName" style="display:none" id="single-placeholder" asp-items="ViewBag.ClientLastName" name="selectClientLastName">
+                                        <option></option>
+                                    </select>
+                                    <input asp-for="Contact.Client.LastName" type="hidden" class="form-control" id="inputClientLastName" placeholder="Apellido" name="inputClientLastName"></input>
+                                    <span asp-validation-for="Contact.Client.LastName" class="text-danger"></span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row ">
+
+                                            <select @*asp-for="Client.Phone"*@ class="form-control select2-placeholder-clientMobil" style="display:none" id="single-placeholder" asp-items="ViewBag.Movil" name="selectClientMobil">
+                                                <option></option>
+                                            </select>
+                                            <input @*asp-for="Client.LastName"*@ class="form-control" type="hidden" id="inputClientMobil" placeholder="Móvil" name="inputClientMovil"></input>
+
+                                            <span @*asp-validation-for="Client.Phone"*@ class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row ">
+                                            <input asp-for="Contact.Client.Email" class="form-control" disabled="disabled" id="inputClientEmail" placeholder="Correo" name="inputClientEmail"></input>
+                                            <span asp-validation-for="Contact.Client.Email" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row ">
+                                    <input placeholder="Dirección" disabled="disabled" name="inputclientAddress" id="inputclientAddress" class="form-control"></input>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row ">
+                                            <select @*asp-for="Type"*@ disabled="disabled" class="form-control hide-search-clientState" id="hide_search" name="clientState">
+                                                <option></option>
+                                                <option value="Florida">Florida</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row ">
+                                            <select @*asp-for="Type"*@ disabled="disabled" class="form-control hide-search-clientCity" id="hide_search" name="clientCity">
+                                                <option></option>
+                                                <option value="Miami">Miami</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <input class="form-control" name="inputClientZip" disabled="disabled" id="inputClientZip" placeholder="Código Zip" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions center">
+                                <button type="button" style="display:none" class="btn btn-warning btn-min-width mr-1 mb-1" id="cancelarCliente">
+                                    <i class="ft-x"></i> Cancelar
+                                </button>
+                                <button type="button" style="display:none" class="btn btn-primary btn-min-width mr-1 mb-1" id="guardarCliente">
+                                    <i class="fa fa-check-square-o"></i> Guardar
+                                </button>
+                                <button type="button" class="btn btn-primary btn-min-width mr-1 mb-1" id="editarCliente">
+                                    <i class="fa fa-check-square-o"></i> Editar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Contacto</h4>
+                        <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            @*<ul class="list-inline mb-0">
+                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                            <li><a data-action="close"><i class="ft-x"></i></a></li>
+                        </ul>*@
+                            <a class="btn btn-primary btn-min-width mr-1 mb-1 float-md-right" asp-action="Create">Nuevo</a>
+
+                        </div>
+                    </div>
+
+                    <div class="card-body collapse in">
+                        <div class="card-block">
+
+                            <div class="col-md-12">
+
+                                <div class="form-group row ">
+                                    @* <select asp-for="Contact.Name" class="form-control" id="contactName" name="contactName"></select>*@
+
+                                    <select asp-for="Contact.ContactId" class="form-control select2-placeholder-contactName" id="single-placeholder" asp-items="ViewBag.ContactId" name="contactId"></select>
+                                    @*<select class="select2-data-ajax form-control" id="select2-ajax"></select>*@
+                                    <span asp-validation-for="Contact.ContactId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group row ">
+                                    <select asp-for="Contact.LastName" class="form-control select2-placeholder-contactLastName" id="single-placeholder" asp-items="ViewBag.ContactLastName" name="contactLastName"></select>
+                                    <span asp-validation-for="Contact.LastName" class="text-danger"></span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row ">
+                                            <select @*asp-for="Client.Phone"*@ class="form-control select2-placeholder-contactPhoneHome" id="single-placeholder" asp-items="ViewBag.PhoneHome" name="contactPhoneHome"></select>
+                                            <span @*asp-validation-for="Client.Phone"*@ class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row ">
+                                            <select @*asp-for="Client.Phone"*@ class="form-control select2-placeholder-contactPhoneOffice" id="single-placeholder" asp-items="ViewBag.PhoneOffice" name="contactPhoneOffice"></select>
+                                            <span @*asp-validation-for="Client.Phone"*@ class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row ">
+                                    <input @*asp-for="Client.Address.AddressLine1"*@ disabled="disabled" class="form-control" name="contactCalle" id="contactCalle" placeholder="Dirección" />
+                                    <span @*asp-validation-for="Client.Address.AddressLine1"*@ class="text-danger"></span>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row ">
+                                            <select @*asp-for="Type"*@ class="form-control  hide-search-contactState" id="hide_search" name="contactState">
+                                                <option value="">Estado</option>
+                                                <option value="Miami">Florida</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row ">
+                                            <select @*asp-for="Type"*@ class="form-control hide-search-contactCity" id="hide_search" name="contactCity">
+                                                <option value="">Ciudad</option>
+                                                <option value="Miami">Miami</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <input class="form-control" name="clientZip" id="contactZip" placeholder="Código Zip" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions center">
+                                <button type="button" class="btn btn-warning btn-min-width mr-1 mb-1">
+                                    <i class="ft-x"></i> Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-primary btn-min-width mr-1 mb-1">
+                                    <i class="fa fa-check-square-o"></i> Guardar
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="form-actions center">
+                @*<button type="button" class="btn btn-warning btn-min-width mr-1 mb-1">
+                    <i class="ft-x"></i> Cancelar
+                </button>*@
+                <a asp-page="Index" type="button" class="btn btn-warning btn-min-width mr-1 mb-1">Cancelar</a>
+                <button type="submit" class="btn btn-primary btn-min-width mr-1 mb-1">
+                    <i class="fa fa-check-square-o"></i> Productos
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            // Single Select Placeholder
+            // Single Select Placeholder
+            var nuevo = false;
+            // DOM Events
+            var $eventSelectName = $(".select2-placeholder-clientName");
+            $eventSelectName.select2({
+                placeholder: "Nombre",
+                val: null
+            });
+            $(".select2-placeholder-clientLastName").select2({
+                placeholder: "Apellido",
+                text: " "
+            });
+            $(".select2-placeholder-clientMobil").select2({
+                placeholder: "Móvil",
+                text: " "
+            });
+
+            $(".select2-placeholder-clientEmail").select2({
+                placeholder: "Correo",
+                text: " "
+            });
+
+            $(".hide-search-clientState").select2({
+                minimumResultsForSearch: Infinity,
+                placeholder: "Estado",
+            });
+            $(".hide-search-clientCity").select2({
+                minimumResultsForSearch: Infinity,
+                placeholder: "Ciudad",
+            });
+
+
+
+            $(".select2-placeholder-contactLastName").select2({
+                placeholder: "Apellido",
+                text: " "
+            });
+            $(".select2-placeholder-contactPhoneHome").select2({
+                placeholder: "Tel. Casa",
+                text: " "
+            });
+
+            $(".select2-placeholder-contactPhoneOffice").select2({
+                placeholder: "Tel. Officina",
+                text: " "
+            });
+
+            $(".hide-search-contactState").select2({
+                minimumResultsForSearch: Infinity,
+                placeholder: "Estado",
+            });
+            $(".hide-search-contactCity").select2({
+                minimumResultsForSearch: Infinity,
+                placeholder: "Ciudad",
+            });
+
+            // var ops =[ { id: 94, text: 'pepe' },{ id: 100, text: 'juan' }];
+             $(".select2-placeholder-contactName").select2({
+                placeholder: "Nombre",
+                allowClear: true
+            });
+            $eventSelectName.on("select2:typeahead:change", function (e) {
+                var countryId = $eventSelectName.val();
+                var url = "/Orders/GetNameForClient";
+                alert("entro1111");
+                $.getJSON(url, { CountryId: countryId }, function (data) {
+                    var item = "";
+                    $(".contactName").empty();
+                    $.each(data, function (i, city) {
+                        item += '<option value="' + city.value + '">' + city.text + '</option>'
+                    });
+                    $("#contactName").html(item);
+                });
+
+
+            });
+
+
+            $eventSelectName.on("select2:select", function (e) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Orders/GetClientForName",
+                    data: JSON.stringify($eventSelectName.val()),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        $('.select2-placeholder-clientLastName').val($eventSelectName.val()).trigger('change');
+                        $('.select2-placeholder-clientMobil').val(data.idPhone).trigger('change');
+                        $('#inputClientEmail').val(data.email);
+                        $('#inputClientAddress').val(data.calle);
+                        $('#inputClientZip').val(data.zip);
+                        //  if ($('.hide-search-city').find("option['" + data.city + "']")) {
+                        $('.hide-search-city').val(data.city).trigger('change');//Ver
+                        $('.hide-search-state').val(data.state).trigger('change');
+                    },
+                    failure: function (response) {
+                        //  alert(response.responseText);
+                    },
+                    error: function (response) {
+                        //  alert(response.responseText);
+                    }
+                });
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Orders/GetNameForClient",
+                    data: JSON.stringify($eventSelectName.val()),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        //alert(data[0].text)
+                        //ops.push(data);
+                        //var new_ops = { id: 94, text:'zuly' };
+                        // ops.push(new_ops);
+                        //$('.select2-placeholder-contactName').select2('data',ops);
+                        $(".select2-placeholder-contactName").select2({
+                            data: data
+                        });
+                        //Funcionaaaaaaa
+                        //$("#contactName").empty();
+                        //var item = "";
+                        //$.each(data, function (i, city) {
+                        //    item += '<option value="' + city.value + '">' + city.text + '</option>'
+                        //});
+                        //$("#contactName").html(item);
+                        //Funcionaaaaaaa
+                    },
+                    failure: function (response) {
+                        //  alert(response.responseText);
+                    },
+                    error: function (response) {
+                        //  alert(response.responseText);
+                    }
+                });
+
+
+                // var countryId = $eventSelectName.val();
+                //var url = "/Orders/GetNameForClient";
+                //    alert("entro22222");
+                //    $.getJSON(url, { id: countryId }, function (data) {
+                //        var item = "";
+                //        $("#contactName").empty();
+                //        $.each(data, function (i, city) {
+                //             alert(city.value);
+                //            item += '<option value="' + city.value + '">' + city.text + '</option>'
+                //        });
+                //        $("#contactName").html(item);
+                //    });
+
+            });
+
+
+
+            // Loading remote data
+
+
+
+          
+
+            var resetOptions;
+            //Aqui se activan los campos desactivados, se esconden los campos de busqueda y se visualizan los campos de texto
+            $('#nuevoCliente').on('click', function () {
+                //$('#').attr('disabled', 'disabled');
+
+                resetOptions = $(".select2-placeholder-clientName").options;
+
+                nuevo = true;
+                $('#inputClientName').removeAttr('type');
+                //$('#selectClientName').addClass('style', 'display:none');
+                $(".select2-placeholder-clientName").select2("destroy");
+
+                $('#inputClientLastName').removeAttr('type');
+                // $('#selectClientLastName').addClass('style', 'display:none');
+                $(".select2-placeholder-clientLastName").select2("destroy");
+
+                $('#inputClientMobil').removeAttr('type');
+                // $('#selectClientMovil').addClass('style', 'display:none');
+                $(".select2-placeholder-clientMobil").select2("destroy");
+
+                $('#inputClientEmail').removeAttr('type');
+                //$('#selectClientEmail').addClass('style', 'display:none');
+                $(".select2-placeholder-clientEmail").select2("destroy");
+
+                $('#editarCliente').removeAttr('style');
+                $('#guardarCliente').attr('style', 'display:none');
+
+                $('.hide-search-clientState').removeAttr('disabled');
+                $('.hide-search-clientCity').removeAttr('disabled');
+
+                $('#inputClientAddress').removeAttr('disabled');
+                $('#inputClientZip').removeAttr('disabled');
+
+                $('#inputClientAddress').text = "";
+                $('#inputClientZip').text = "";
+                $('#inputClientEmail').val = " ";
+            });
+
+          
+
+            //se me adiciona el cliente, se activan los campos de busqueda, se desactina los de insertar, y se esconden los de texto
+            $('#guardarCliente').on('click', function () {
+
+                var source;
+                var controller = "/Orders/AddClient";
+                if (nuevo) {
+                    source = [
+                        $("#inputClientName").val(),
+                        $("#inputClientLastName").val(),
+                        $("#inputClientEmail").val(),
+                        $("#inputClientMobil").val(),
+                        $(".inputClientAddress").val(),
+                        $(".hide-search-clientCity").val(),
+                        $(".hide-search-clientState").val(),
+                        $("#inputClientZip").val(),
+                    ];
+                }
+                else {
+                    source = [
+                        $(".inputClientEmail").val(),
+                        $(".inputClientAddress").val(),
+                        $(".hide-search-clientCity").val(),
+                        $(".hide-search-clientState").val(),
+                        $("#inputClientZip").val(),
+                    ];
+                    controller = "/Orders/EditClient";
+                }
+
+
+                $.ajax({
+                    type: "POST",
+                    url: controller,
+                    data: JSON.stringify(source),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        $('.select2-placeholder-clientLastName').val(data.lastname).trigger('change');
+                        $('.select2-placeholder-clientMobil').val(data.idPhone).trigger('change');
+                        $('#inputClientEmail').val(data.email);
+                        $('#inputClientAddress').val(data.calle);
+                        $('#inputClientZip').val(data.zip);
+                        //  if ($('.hide-search-city').find("option['" + data.city + "']")) {
+                        $('.hide-search-city').val(data.city).trigger('change');//Ver
+                        $('.hide-search-state').val(data.state).trigger('change');
+
+                        $('#inputClientName').attr('disabled', 'disabled');
+                        $('#inputClientLastName').attr('disabled', 'disabled');
+
+                        $('#inputClientAddress').attr('disabled', 'disabled');
+                        $('#inputClientZip').attr('disabled', 'disabled');
+                        $('#guardarCliente').attr('style', 'display:none');
+                        $('#cancelarCliente').attr('style', 'display:none');
+                        $('#editarCliente').removeAttr('style');
+                    },
+                    failure: function (response) {
+                        //  alert(response.responseText);
+                    },
+                    error: function (response) {
+                        //  alert(response.responseText);
+                    }
+
+                });
+            });
+
+            //se dvisualizan los campos desactivados y se muestra el boton guardar
+            $('#editarCliente').on('click', function () {
+
+                //$('.hide-search-clientState').removeAttr('disabled');
+                //$('.hide-search-clientCity').removeAttr('disabled');
+                $('#inputClientAddress').removeAttr('disabled');
+                $('#inputClientEmail').removeAttr('disabled');
+                $('#inputClientZip').removeAttr('disabled');
+                $('#editarCliente').attr('style', 'display:none');
+                $('#guardarCliente').removeAttr('style');
+                $('#cancelarCliente').removeAttr('style');
+
+            });
+
+        });
+    </script>
+
+
+}

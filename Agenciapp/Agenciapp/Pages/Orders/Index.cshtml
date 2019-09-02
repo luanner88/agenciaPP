@@ -1,0 +1,69 @@
+﻿@page
+@model Agenciapp.Pages.Orders.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Client)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].ValorAduanal)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Amount)
+            </th>
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Order) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorAduanal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.OrderId"><i class="ft-edit"></i></a> |
+                <a asp-page="./Details" asp-route-id="@item.OrderId"><i class="ft-info"></i></a> |
+                <a asp-page="./Delete" asp-route-id="@item.OrderId"><i class="ft-delete"></i></a>|
+                <a asp-page="./ExportComprobantePago" asp-route-id="@item.OrderId">Pago</a>
+                <a asp-page="./ExportEnvio" asp-route-id="@item.OrderId">Envio</a>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

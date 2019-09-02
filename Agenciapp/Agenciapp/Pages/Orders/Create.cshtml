@@ -1,0 +1,376 @@
+﻿@page
+@model Agenciapp.Pages.Orders.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Datos de la Orden</h4>
+                        <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                <li><a data-action="close"><i class="ft-x"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body collapse in">
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-md-6">
+
+
+                                        <div class="form-group row ">
+                                            <select asp-for="Order.TipoPagoId" class="form-control hide-search-pago" id="hide_search" asp-items="ViewBag.TipoPagoId" name="TipoPago"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row ">
+                                            <select asp-for="Order.Type" class="form-control hide-search-paquete" id="hide_search" placeholder="Tipo de paquete">
+                                                <option value="Mixto">Mixto</option>
+                                                <option value="Paquete">Paquete</option>
+                                                <option value="Alimentos">Alimentos</option>
+                                                <option value="Medicina">Comida</option>
+                                                <option value="Remesas">Remesas</option>
+                                            </select>
+                                            <span asp-validation-for="Order.Type" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <select asp-for="@Model.listVA" class="col-md-6 select2-placeholder-valor form-control" multiple="multiple" asp-items="ViewBag.ValorAduanalId"></select>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Costos</h4>
+                        <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                <li><a data-action="close"><i class="ft-x"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body collapse in">
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Order.CantLb" class="control-label"></label>
+                                            <input asp-for="Order.CantLb" class="form-control" placeholder="Cantidad de lb." type="number" />
+                                            <span asp-validation-for="Order.CantLb" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group ">
+                                            <label asp-for="Order.PriceLb" class="control-label"></label>
+                                            <input asp-for="Order.PriceLb" placeholder="Precio por lb" class="form-control" type="number" />
+                                            <span asp-validation-for="Order.PriceLb" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label asp-for="Order.OtrosCostos" class="control-label"></label>
+
+                                        <input asp-for="Order.OtrosCostos" placeholder="Otros Costos" class="form-control" type="number" />
+                                        <span asp-validation-for="Order.OtrosCostos" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label asp-for="Order.ValorPagado" class="control-label"></label>
+
+                                        <input asp-for="Order.ValorPagado" placeholder="Valor Pagado" class="form-control" type="number" />
+                                        <span asp-validation-for="Order.ValorPagado" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Productos</h4>
+                        <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                <li><a data-action="close"><i class="ft-x"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body collapse in">
+                        <div class="card-block">
+                            <div class="row">
+
+                                <div class="form-group row">
+                                    <div class="col-md-9">
+                                        <select class="col-md-3 form-control select2-placeholder-product" id="single-placeholder" asp-items="ViewBag.ProductId"></select>
+                                    </div>
+                                    @*<div class="col-md-3">
+                                   <input type="button" id="btnAdd" value="Nuevo" class="btn btn-primary btn-min-width mr-1 mb-1" />
+                                </div>*@
+                                    <div class="col-md-3">
+                                        <input type="button" id="saveProduct" value="Guardar" class="btn btn-primary btn-min-width mr-1 mb-1" />
+                                    </div>
+                                </div>
+                                <table class="table" id="tblProductos">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PackageItem[0].Qty)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PackageItem[0].Product.Code)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PackageItem[0].Product.Description)
+                                            </th>
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PackageItem[0].Description)
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.PackageItem)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Qty)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Product.Code)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Product.Description)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Description)
+                                                </td>
+                                                <td>
+                                                    <a asp-page="./Edit" asp-route-id="@item.PackageItemId">Edit</a> |
+                                                    <a asp-page="./Details" asp-route-id="@item.PackageItemId">Details</a> |
+                                                    <a asp-page="./Delete" asp-route-id="@item.PackageItemId">Delete</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <h4 name="total" style="text-align:right;"><i class="icon-eye6"></i> Precio Total: 60</h4>
+            <h4 name="total" style="text-align:right;"><i class="icon-eye6"></i> Balance: 10</h4>
+
+
+            <div class="form-group center">
+                <div class="col-md-6">
+                    <a asp-page="Index" type="button" class="btn btn-warning btn-min-width mr-1 mb-1">Cancelar</a>
+                </div>
+            <div class="col-md-6">
+                <input type="submit" value="Create" class="btn btn-primary btn-min-width mr-1 mb-1" />
+
+            </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+
+            // Hiding the search box
+            $(".hide-search-pago").select2({
+                minimumResultsForSearch: Infinity,
+                placeholder: "Tipo de Pago",
+                allowClear: true
+            });
+            $(".hide-search-paquete").select2({
+                minimumResultsForSearch: Infinity,
+                placeholder: "Tipo de Paquete",
+                allowClear: true
+            });
+
+            // Single Select Placeholder
+            $(".select2-placeholder-valor").select2({
+                placeholder: "Valor Aduanal",
+                allowClear: true
+            });
+            //select producto
+            var $eventSelectProduct = $(".select2-placeholder-product");
+            $eventSelectProduct.select2({
+                placeholder: "Tipo Color Talla/Marca",
+                allowClear: true,
+            });
+            //Adicionar fila la hacer click
+            $('.select2-placeholder-product').on("select2:select", function (e) {
+
+                var productos = $('.select2-placeholder-product');
+                var productos1 = productos.select2('data')[0].text
+
+                //   var opt = productos.options[productos];
+                ////Get the reference of the Table's TBODY element.
+                var tBody = $("#tblProductos > TBODY")[0];
+
+                ////Add Row.
+                var row = tBody.insertRow(-1);
+
+                ////Add Button cell.
+                var cell = $(row.insertCell(-1));
+                var celCant = $("<input />");
+                celCant.attr("type", "text");
+                celCant.attr("class", "form-control");
+                ///  btnRemove.attr("onclick", "Remove(this);");
+                // btnRemove.val("Remove");
+                cell.append(celCant);
+
+                ////Add Name cell.
+                cell = $(row.insertCell(-1));
+                cell.html(productos.val());
+
+                ////Add Country cell.
+                cell = $(row.insertCell(-1));
+                cell.html(productos1);
+
+
+                ////Add Button cell.
+                cell = $(row.insertCell(-1));
+                var celNotas = $("<input />");
+                celNotas.attr("type", "text");
+                celNotas.attr("class", "form-control");
+                ///  btnRemove.attr("onclick", "Remove(this);");
+                // btnRemove.val("Remove");
+                cell.append(celNotas);
+
+                ////Add Button cell.
+                cell = $(row.insertCell(-1));
+                var btnRemove = $("<input  />");
+                btnRemove.attr("type", "button");
+                btnRemove.attr("class", "btn btn-default");
+                btnRemove.attr("onclick", "Remove(this);");
+                btnRemove.val("Remove");
+                cell.append(btnRemove);
+            });
+            //Salvar todos los productos
+            $("#saveProduct").on('click', function () {
+                //Loop through the Table rows and build a JSON array.
+
+                var customers = new Array();
+                $("#tblCustomers TBODY TR").each(function () {
+                    var row = $(this);
+                    var PackageItem = {};
+                    PackageItem.Qty = row.find("TD").eq(0).html();
+                    PackageItem.Producto.Code = row.find("TD").eq(1).html();
+                    PackageItem.Producto.Description = row.find("TD").eq(2).html();
+                    PackageItem.Description = row.find("TD").eq(3).html();
+                    customers.push(PackageItem);
+                });
+                //Send the JSON array to Controller using AJAX.
+                $.ajax({
+                    type: "POST",
+                    url: "/CreateOrder/InsertPackageItem",
+                    data: JSON.stringify(customers),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (r) {
+                        alert(r + " record(s) inserted.");
+                    }
+                });
+
+            });
+            //Adicionar Fila
+            $('#btnAdd').on('click', function () {
+
+                //Get the reference of the Table's TBODY element.
+                var tBody = $("#tblProductos > TBODY")[0];
+
+                ////Add Row.
+                var row = tBody.insertRow(-1);
+
+                ////Add Button cell.
+                var cell = $(row.insertCell(-1));
+                var celCant = $("<input />");
+                celCant.attr("type", "text");
+                celCant.attr("class", "form-control");
+                ///  btnRemove.attr("onclick", "Remove(this);");
+                // btnRemove.val("Remove");
+                cell.append(celCant);
+
+                ////Add Code
+                cell = $(row.insertCell(-1));
+                cell.html(opt.value);
+
+                cell = $(row.insertCell(-1));
+                cell.html(opt.value);
+
+                ////Add Country cell.
+                //cell = $(row.insertCell(-1));
+                //cell.html(opt.text);
+                ////Add Add Talla.
+                cell = $(row.insertCell(-1));
+                var celDes = $("<input />");
+                celDes.attr("type", "text");
+                celDes.attr("class", "form-control");
+                ///  btnRemove.attr("onclick", "Remove(this);");
+                // btnRemove.val("Remove");
+                cell.append(celDes);
+
+                ////Add Button cell.
+                cell = $(row.insertCell(-1));
+                var btnRemove = $("<input  />");
+                btnRemove.attr("type", "button");
+                btnRemove.attr("class", "btn btn-default");
+                btnRemove.attr("onclick", "Remove(this);");
+                cell.append(btnRemove);
+            });
+
+        });
+    </script>
+}

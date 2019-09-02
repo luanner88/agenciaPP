@@ -1,0 +1,59 @@
+﻿@page
+@model Agenciapp.Pages.ValoresAduanales.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ValorAduanal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorAduanal.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValorAduanal.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorAduanal.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValorAduanal.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorAduanal.Um)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValorAduanal.Um)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorAduanal.Value)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValorAduanal.Value)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorAduanal.Article)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValorAduanal.Article)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorAduanal.Observaciones)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValorAduanal.Observaciones)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="ValorAduanal.ValorAduanalId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

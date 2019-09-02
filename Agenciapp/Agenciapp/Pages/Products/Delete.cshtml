@@ -1,0 +1,59 @@
+﻿@page
+@model Agenciapp.Pages.Products.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Code)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Code)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Tipo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Tipo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Color)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Color)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.TallaMarca)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.TallaMarca)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Agency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Agency.LegalName)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Product.ProductId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

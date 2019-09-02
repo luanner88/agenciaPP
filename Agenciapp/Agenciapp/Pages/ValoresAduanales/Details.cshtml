@@ -1,0 +1,56 @@
+﻿@page
+@model Agenciapp.Pages.ValoresAduanales.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ValorAduanal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorAduanal.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValorAduanal.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorAduanal.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValorAduanal.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorAduanal.Um)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValorAduanal.Um)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorAduanal.Value)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValorAduanal.Value)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorAduanal.Article)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValorAduanal.Article)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorAduanal.Observaciones)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValorAduanal.Observaciones)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.ValorAduanal.ValorAduanalId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

@@ -1,0 +1,133 @@
+﻿@page
+@model Agenciapp.Pages.ExportEnvioModel
+
+@{
+    ViewData["Title"] = "ExportEnvio";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>ExportEnvio</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Number)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Number)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Amount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Amount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.PriceLb)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.PriceLb)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.CantLb)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.CantLb)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.ValorPagado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.ValorPagado)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Balance)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Balance)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.OtrosCostos)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.OtrosCostos)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.ValorAduanal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.ValorAduanal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Agency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Agency.LegalName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Client)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Client.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Contact)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Contact.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Office)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Office.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.TipoPago)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.TipoPago.Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.User)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.User.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    @*<a asp-page="./Edit" asp-route-id="@Model.Order.OrderId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>*@
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-default" />
+            <a type="button" asp-page="./Index" class="btn btn-warning">Cancelar</a>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Exportar" class="btn btn-default" />
+        </div>
+    </form>
+
+</div>

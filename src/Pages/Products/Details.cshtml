@@ -1,0 +1,56 @@
+﻿@page
+@model Agenciapp.Pages.Products.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Code)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Code)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Tipo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Tipo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Color)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Color)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.TallaMarca)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.TallaMarca)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Agency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Agency.LegalName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Product.ProductId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
